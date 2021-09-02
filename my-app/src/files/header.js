@@ -67,8 +67,8 @@ export default function header() {
         <p >In class XII : I scored 58% in CBSE board</p>
         </li>
 
-        <li><b><a href="http://www.bjbcollege.in/" style={{fontSize: '1.2vw'}}>BJB Autonomous College</a></b>
-        <p style={{fontSize: '1.2vw'}}>Currently : I am studying IMSc. BI (Bioinformatics)</p>
+        <li><b><a href="http://www.bjbcollege.in/" >BJB Autonomous College</a></b>
+        <p >Currently : I am studying IMSc. BI (Bioinformatics)</p>
         </li>
         </ul>
         <div style={{}}>
