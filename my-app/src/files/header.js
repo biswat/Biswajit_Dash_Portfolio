@@ -41,10 +41,10 @@ export default function header() {
         <div className="head" onMouseMove= {mouseOn} onMouseOut= {mouseOut}>
         
             <ul className="list">
-                <li> <h1 style={{fontSize: '3.5vw'}}>Biswajit_Dash</h1> </li>
-                <li> <b style={{fontSize: '2.0vw'}}>Education</b> </li>
-                <li> <b style={{fontSize: '2.0vw'}}>Projects</b> </li>
-                <li> <b style={{fontSize: '2.0vw'}}>Experience</b> </li>
+                <li> <h1 style={{fontSize: '5.0vw'}}>Biswajit_Dash</h1> </li>
+                <li> <b style={{fontSize: '3.5vw'}}>Education</b> </li>
+                <li> <b style={{fontSize: '3.5vw'}}>Projects</b> </li>
+                <li> <b style={{fontSize: '3.5vw'}}>Experience</b> </li>
             </ul>
             <p> <b><marquee behavior="scroll" direction="left" class="add">hay! i am Biswajit Dash a web developer, loved to work with javascript</marquee></b> </p>
         </div>
