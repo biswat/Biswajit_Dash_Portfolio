@@ -109,9 +109,9 @@
   /* For mobile phones: */
 
   .edu {
-    float: left;
+    /* float: left; */
     width: 100%;
-    height: 70px;
+    /* height: 70px; */
   }
 
   .edu_list {
