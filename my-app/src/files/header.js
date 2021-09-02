@@ -74,9 +74,7 @@ export default function header() {
         <div style={{}} className="skill">
         <div className="edu_codeSkill" > <b>Coding Skill :</b> </div>
         <p className="edu_codeSkill">HTML and CSS from <a href="https://progate.com/course_certificate/ec54a480qirkuz">Progate</a></p>
-
         <p className="edu_codeSkill">JavaScript from <a href="https://courses.learncodeonline.in/learn/search?show=all&type=100&search=javascript">LCO</a></p>
-
         <p className="edu_codeSkill">React JS ( Ongoing... )</p>
         </div>
             </div>
