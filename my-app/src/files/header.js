@@ -59,12 +59,12 @@ export default function header() {
         <li><b style={{fontSize: '1.2vw'}}>2018-2021</b></li>
         </ul>
         <ul className="edu_list data" style={{width: "70%"}}>
-        <li><b><a href="https://svncuttack.org/" style={{fontSize: '1.2vw'}}>Suddhananda Vidyalaya</a></b>
-        <p style={{fontSize: '1.2vw'}}>In class X : I scored 9.0 CGPA in CBSE board</p>
+        <li><b><a href="https://svncuttack.org/" >Suddhananda Vidyalaya</a></b>
+        <p >In class X : I scored 9.0 CGPA in CBSE board</p>
         </li>
 
-        <li><b><a href="http://www.bjemschool.org/" style={{fontSize: '1.2vw'}}>BJEM school</a></b>
-        <p style={{fontSize: '1.2vw'}}>In class XII : I scored 58% in CBSE board</p>
+        <li><b><a href="http://www.bjemschool.org/" >BJEM school</a></b>
+        <p >In class XII : I scored 58% in CBSE board</p>
         </li>
 
         <li><b><a href="http://www.bjbcollege.in/" style={{fontSize: '1.2vw'}}>BJB Autonomous College</a></b>
