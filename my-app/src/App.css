@@ -118,10 +118,13 @@
     height: 50px;
   }
 
-  .edu_codeSkill{
-    /* line-height: 10%; */
-    padding-top: 2px;
+  /* .edu_codeSkill{
+    padding-top: 1px;
     height: 30px;
+  } */
+
+  .skill {
+    padding-top: 150px;
   }
 
   .data {
@@ -135,6 +138,10 @@
 
   .h2 {
     font-size: 3.5vw;
+  }
+
+  .edu_list {
+    font-size: 2.0vw;
   }
 }
 

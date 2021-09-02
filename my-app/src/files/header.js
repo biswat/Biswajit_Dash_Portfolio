@@ -71,7 +71,7 @@ export default function header() {
         <p >Currently : I am studying IMSc. BI (Bioinformatics)</p>
         </li>
         </ul>
-        <div style={{}}>
+        <div style={{}} className="skill">
         <div className="edu_codeSkill" > <b>Coding Skill :</b> </div>
         <p className="edu_codeSkill">HTML and CSS from <a href="https://progate.com/course_certificate/ec54a480qirkuz">Progate</a></p>
 
