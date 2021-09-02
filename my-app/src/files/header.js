@@ -42,9 +42,9 @@ export default function header() {
         
             <ul className="list">
                 <li> <h1 style={{fontSize: '3.5vw'}}>Biswajit_Dash</h1> </li>
-                <li> <b style={{fontSize: '1.7vw'}}>Education</b> </li>
-                <li> <b style={{fontSize: '1.7vw'}}>Projects</b> </li>
-                <li> <b style={{fontSize: '1.7vw'}}>Experience</b> </li>
+                <li> <b style={{fontSize: '2.0vw'}}>Education</b> </li>
+                <li> <b style={{fontSize: '2.0vw'}}>Projects</b> </li>
+                <li> <b style={{fontSize: '2.0vw'}}>Experience</b> </li>
             </ul>
             <p> <b><marquee behavior="scroll" direction="left" class="add">hay! i am Biswajit Dash a web developer, loved to work with javascript</marquee></b> </p>
         </div>
