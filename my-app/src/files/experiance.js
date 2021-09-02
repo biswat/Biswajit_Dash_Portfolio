@@ -11,7 +11,7 @@ export class experiance extends Component {
     render() {
         return (
             <div>
-            <h1>EXPERIANCE</h1>
+            <div className="h2">EXPERIANCE</div>
             
             <div className="exp">
                 <div className="experiance" style={{fontSize: '1.2vw'}}>
