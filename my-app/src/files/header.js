@@ -41,7 +41,7 @@ export default function header() {
         <div className="head" onMouseMove= {mouseOn} onMouseOut= {mouseOut}>
         
             <ul className="list">
-                <li> <h1 className="name">Biswajit_Dash</h1> </li>
+                <li> <h1 className="h1">Biswajit_Dash</h1> </li>
                 <li> <b className="h2">Education</b> </li>
                 <li> <b className="h2">Projects</b> </li>
                 <li> <b className="h2">Experience</b> </li>
