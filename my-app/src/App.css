@@ -133,10 +133,12 @@
 
   .h1 {
     font-size: 5.0vw;
+    color: white;
   }
 
   .h2 {
     font-size: 3.5vw;
+    color: white;
   }
 
   .edu_list {
