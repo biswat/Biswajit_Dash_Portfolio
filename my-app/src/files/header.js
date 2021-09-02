@@ -52,32 +52,32 @@ export default function header() {
         <div>
         
         <img className="edu" src={img} alt="" />
-        <div className="edu det" style={{fontSize:'2.06vw'}}>
+        <div className="edu det" style={{fontSize:'1.26vw'}}>
         <ul className="edu_list" style={{width: "30%",}}>
-        <li><b style={{fontSize: '2.0vw'}}>2014-2015</b></li><br /><br />
-        <li><b style={{fontSize: '2.0vw'}}>2015-2018</b></li><br /><br />
-        <li><b style={{fontSize: '2.0vw'}}>2018-2021</b></li>
+        <li><b style={{fontSize: '1.2vw'}}>2014-2015</b></li><br /><br />
+        <li><b style={{fontSize: '1.2vw'}}>2015-2018</b></li><br /><br />
+        <li><b style={{fontSize: '1.2vw'}}>2018-2021</b></li>
         </ul>
         <ul className="edu_list data" style={{width: "70%"}}>
-        <li><b><a href="https://svncuttack.org/" style={{fontSize: '2.0vw'}}>Suddhananda Vidyalaya</a></b>
-        <p style={{fontSize: '2.0vw'}}>In class X : I scored 9.0 CGPA in CBSE board</p>
+        <li><b><a href="https://svncuttack.org/" style={{fontSize: '1.2vw'}}>Suddhananda Vidyalaya</a></b>
+        <p style={{fontSize: '1.2vw'}}>In class X : I scored 9.0 CGPA in CBSE board</p>
         </li>
 
-        <li><b><a href="http://www.bjemschool.org/" style={{fontSize: '2.0vw'}}>BJEM school</a></b>
-        <p style={{fontSize: '2.0vw'}}>In class XII : I scored 58% in CBSE board</p>
+        <li><b><a href="http://www.bjemschool.org/" style={{fontSize: '1.2vw'}}>BJEM school</a></b>
+        <p style={{fontSize: '1.2vw'}}>In class XII : I scored 58% in CBSE board</p>
         </li>
 
-        <li><b><a href="http://www.bjbcollege.in/" style={{fontSize: '2.0vw'}}>BJB Autonomous College</a></b>
-        <p style={{fontSize: '2.0vw'}}>Currently : I am studying IMSc. BI (Bioinformatics)</p>
+        <li><b><a href="http://www.bjbcollege.in/" style={{fontSize: '1.2vw'}}>BJB Autonomous College</a></b>
+        <p style={{fontSize: '1.2vw'}}>Currently : I am studying IMSc. BI (Bioinformatics)</p>
         </li>
         </ul>
         <div style={{}}>
-        <h2 className="edu_codeSkill" style={{fontSize: '2.0vw'}}> <b>Coding Skill :</b> </h2>
-        <p className="edu_codeSkill" style={{fontSize: '2.0vw'}}>HTML and CSS from <a href="https://progate.com/course_certificate/ec54a480qirkuz">Progate</a></p>
+        <h2 className="edu_codeSkill" style={{fontSize: '1.2vw'}}> <b>Coding Skill :</b> </h2>
+        <p className="edu_codeSkill" style={{fontSize: '1.2vw'}}>HTML and CSS from <a href="https://progate.com/course_certificate/ec54a480qirkuz">Progate</a></p>
 
-        <p className="edu_codeSkill" style={{fontSize: '2.0vw'}}>JavaScript from <a href="https://courses.learncodeonline.in/learn/search?show=all&type=100&search=javascript">LCO</a></p>
+        <p className="edu_codeSkill" style={{fontSize: '1.2vw'}}>JavaScript from <a href="https://courses.learncodeonline.in/learn/search?show=all&type=100&search=javascript">LCO</a></p>
 
-        <p className="edu_codeSkill" style={{fontSize: '2.0vw'}}>React JS ( Ongoing... )</p>
+        <p className="edu_codeSkill" style={{fontSize: '1.2vw'}}>React JS ( Ongoing... )</p>
         </div>
             </div>
 
