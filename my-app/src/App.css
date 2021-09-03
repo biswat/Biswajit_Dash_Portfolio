@@ -71,8 +71,8 @@
 } */
 
 .edu {
-  /* height: 400px; */
-  /* width: 500px; */
+  /* height: 400px;
+  width: 500px; */
   max-height: 400px;
   margin-left: 20px;
   
@@ -106,6 +106,28 @@
   height: 240px;
 }
 
+.project {
+  float: left;
+  width: 45%;
+  padding: 5px;
+}
+.pro-det {
+  list-style: none;
+  float: left;
+  padding: 5px;
+  
+}
+
+.pro {
+  border-color: blueviolet;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
 @media (max-width: 783px) {
   /* For mobile phones: */
 
@@ -123,11 +145,6 @@
     display: inline-block;
     padding-right: 20px;
   }
-
-  /* .edu_codeSkill{
-    padding-top: 1px;
-    height: 30px;
-  } */
 
   .skill {
     padding-top: 110px;
@@ -153,27 +170,10 @@
   }
 
   .project {
-    float: right;
-    width: 100%;
-    /* padding: 5px; */
+    margin-left: 15px;
+    width: 90%;
+    
   }
-}
-
-
-.project {
-  float: left;
-  width: 45%;
-  padding: 5px;
-}
-
-.pro {
-  border-color: blueviolet;
-  background: rgba( 255, 255, 255, 0.25 );
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
-  border-radius: 10px;
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .two {
