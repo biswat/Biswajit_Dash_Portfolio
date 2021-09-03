@@ -53,9 +53,9 @@ export default function header() {
         <img className="edu" src={img} alt="" />
         <div className="edu det" style={{fontSize:'1.26vw'}}>
         <ul className="edu_list" style={{width: "30%",}}>
-        <li><b style={{fontSize: '1.2vw'}}>2014-2015</b></li><br /><br />
-        <li><b style={{fontSize: '1.2vw'}}>2015-2018</b></li><br /><br />
-        <li><b style={{fontSize: '1.2vw'}}>2018-2021</b></li>
+        <li><b>2014-2015</b></li><br /><br />
+        <li><b>2015-2018</b></li><br /><br />
+        <li><b>2018-2021</b></li>
         </ul>
         <ul className="edu_list data" style={{width: "70%"}}>
         <li><b><a href="https://svncuttack.org/" >Suddhananda Vidyalaya</a></b>
