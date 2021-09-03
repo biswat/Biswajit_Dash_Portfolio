@@ -62,8 +62,9 @@ export class projects extends React.Component {
                 </li>
 
                 </ul>
-                <img className="project" src={work} alt="" />
+                
                 </div>
+                <img className="project" src={work} alt="" />
             </div>
         )
     }

@@ -110,8 +110,8 @@
   /* For mobile phones: */
 
   .edu {
-    /* float: left; */
-    width: 100%;
+    float: left;
+    width: 90%;
     /* height: 70px; */
   }
 
@@ -150,6 +150,12 @@
 
   .edu_list {
     font-size: 2.0vw;
+  }
+
+  .project {
+    float: right;
+    width: 100%;
+    /* padding: 5px; */
   }
 }
 
