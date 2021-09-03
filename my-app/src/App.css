@@ -128,7 +128,10 @@
   border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
-
+.h1 {
+  text-align: center;
+  padding-top: 10px;
+}
 
 @media (max-width: 783px) {
   /* For mobile phones: */
@@ -165,7 +168,7 @@
   }
 
   .h2 {
-    font-size: 3.5vw;
+    font-size: 4.0vw;
     color: white;
   }
 
