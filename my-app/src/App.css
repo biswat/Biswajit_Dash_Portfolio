@@ -158,7 +158,9 @@
   }
 
   .h1 {
-    font-size: 5.0vw;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 10.0vw;
     color: white;
   }
 

@@ -44,6 +44,7 @@ export default function header() {
                 <li> <b className="h2">Education</b> </li>
                 <li> <b className="h2">Projects</b> </li>
                 <li> <b className="h2">Experience</b> </li>
+                <li> <b className="h2">Contact</b> </li>
             </ul>
             <p> <b><marquee behavior="scroll" direction="left" class="add">hay! i am Biswajit Dash a web developer, loved to work with javascript</marquee></b> </p>
         </div>
