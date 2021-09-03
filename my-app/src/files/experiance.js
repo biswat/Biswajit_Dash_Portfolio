@@ -11,7 +11,7 @@ export class experiance extends Component {
     render() {
         return (
             <div>
-            <div className="h2">EXPERIANCE</div>
+            <h1>EXPERIANCE</h1>
             
             <div className="exp">
                 <div className="experiance" style={{fontSize: '1.2vw'}}>
@@ -20,7 +20,7 @@ export class experiance extends Component {
                 </div>
                 <div className="experiance">
                 <b>HACKATHONS EXPERIANCE</b>
-                <ul>
+                <ul className="hack">
                 <li>1st Runner Up in <a href="">DelhiHacks Hackathon</a></li>
                 <li>Participant in <a href="">GarudaHacks Hackathons</a></li>
                 <li>Participant in <a href="">HakinCodes Hackathons</a></li>
