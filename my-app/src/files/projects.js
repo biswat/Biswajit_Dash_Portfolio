@@ -46,12 +46,12 @@ export class projects extends React.Component {
                 <ul className="pro-det" onMouseMove = {this._onMouseMove} ref="project" style={maskStyle}>
 
                 <li className="">
-                <a  style={{fontSize: '2vw'}} href="https://biswat.github.io/med_pharm/">MED PHARM</a> <br />
+                <a  href="https://biswat.github.io/med_pharm/">MED PHARM</a> <br />
                 a medical e-commerce site, which have a aim to provide a better service as compired to other such examples
                 </li>
 
                 <li className="">
-                <a style={{fontSize: '2vw'}} href="https://github.com/biswat/protein_analysis">PROTEIN ANALYSIS</a> <br />
+                <a href="https://github.com/biswat/protein_analysis">PROTEIN ANALYSIS</a> <br />
                 a protein analysis tool which gives a details analysis report on a protein sequence, like that of other protein analysis tool
                 </li>
                 </ul>
