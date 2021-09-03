@@ -16,7 +16,7 @@ export class experiance extends Component {
             <div className="exp">
                 <div className="experiance" style={{fontSize: '1.2vw'}}>
                     <p>I feel blessed to share my work with following companies</p>
-                    <img src={img} alt="" />
+                    <img  src={img} alt="" />
                 </div>
                 <div className="experiance">
                 <b>HACKATHONS EXPERIANCE</b>

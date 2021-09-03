@@ -133,6 +133,44 @@
   padding-top: 10px;
 }
 
+.contact {
+  height: 250px;
+  padding: 10px;
+  width: 100%;
+  float: left;
+  border-color: blueviolet;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.experiance {
+  float: left;
+  width: 45%;
+  padding: 5px;
+}
+
+.exp {
+  float: left;
+  width: 98%;
+  padding: 10px;
+  border-color: blueviolet;
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  
+}
+
+.hack {
+  list-style: none;
+}
+
 @media (max-width: 783px) {
   /* For mobile phones: */
 
@@ -172,7 +210,7 @@
     color: white;
   }
 
-  .edu_list, .edu_codeSkill, .project {
+  .edu_list, .edu_codeSkill, .project, .exp {
     font-size: 2.5vw;
   }
 
@@ -187,26 +225,3 @@
   padding-top: 20px;
 }
 
-.experiance {
-  float: left;
-  width: 45%;
-  padding: 5px;
-}
-
-.exp {
-  float: left;
-  width: 98%;
-  padding: 10px;
-  border-color: blueviolet;
-  background: rgba( 255, 255, 255, 0.25 );
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
-  border-radius: 10px;
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
-  
-}
-
-.hack {
-  list-style: none;
-}

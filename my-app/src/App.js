@@ -5,6 +5,7 @@ import Header from './files/header';
 import Toggle from './files/body';
 import Projects from './files/projects'
 import Experiance from './files/experiance'
+import Contact from './files/contact'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
     <Header/>
     <Projects/>
     <Experiance/>
+    <Contact/>
 </>
   );
 }
