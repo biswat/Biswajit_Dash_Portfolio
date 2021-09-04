@@ -50,7 +50,7 @@
 
 .list li{
   display: inline-block;
-  padding-right: 50px;
+  padding-right: 190px;
 }
 
 .list li h1{
@@ -136,8 +136,9 @@
 .contact {
   height: 250px;
   padding: 10px;
-  width: 100%;
-  float: left;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 25%;
   border-color: blueviolet;
   background: rgba( 255, 255, 255, 0.25 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -171,6 +172,15 @@
   list-style: none;
 }
 
+.cont {
+  list-style: none;
+}
+
+.cont li {
+  display: inline-block;
+  padding: 10px;
+}
+
 @media (max-width: 783px) {
   /* For mobile phones: */
 
@@ -186,7 +196,7 @@
 
   .list li{
     display: inline-block;
-    padding-right: 20px;
+    padding-right: 18px;
   }
 
   .skill {
@@ -218,6 +228,18 @@
     margin-left: 15px;
     width: 90%;
     
+  }
+
+  .contact {
+    width: 100%;
+    float: left;
+    margin: 0%;
+    padding: 0px;
+  }
+
+  .cont li {
+    display: inline-block;
+    padding: 5px;
   }
 }
 
