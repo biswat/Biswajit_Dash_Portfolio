@@ -19,10 +19,10 @@ export class contact extends Component {
                 <div className="contact">
                     <b>You can contact me by : -</b>
                     <ul className="cont">
-                    <li><a href=""><img src={github} alt="" /></a></li>
-                    <li><a href=""><img src={gmail} alt="" /></a></li>
-                    <li><a href=""><img src={linkedin} alt="" /></a></li>
-                    <li><a href=""><img src={instagram} alt="" /></a></li>
+                    <li><a href="https://github.com/biswat"><img src={github} alt="" /></a></li>
+                    <li><a href="https://biswajit.18.dash@gmail.com"><img src={gmail} alt="" /></a></li>
+                    <li><a href="https://www.linkedin.com/in/biswajit-dash-20799b175/"><img src={linkedin} alt="" /></a></li>
+                    <li><a href="https://www.instagram.com/biswajit.18/"><img src={instagram} alt="" /></a></li>
                     <li><a href=""><img src={whatsapp} alt="" /></a></li>
                     </ul>
                 </div>
