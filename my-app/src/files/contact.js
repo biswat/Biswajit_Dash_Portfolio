@@ -13,6 +13,39 @@ export class contact extends Component {
     }
 
     render() {
+        function validation() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            var message = document.getElementById("message").value;
+            var text ;
+            var error = document.getElementById("error")
+
+            if(name.length < 5) {
+                text = "Please enter a valid name";
+                error.innerHTML = text;
+                return false
+            }
+            if(email.indexOf("@") == -1 || email.length < 6) {
+                text = "Please enter a valid email-";
+                error.innerHTML = text;
+                return false
+            }
+            if(isNaN(phone) || phone.length != 10) {
+                text = "Please enter a valid phone number";
+                error.innerHTML = text;
+                return false
+            }
+            if(message.length <= 10) {
+                text = "Please enter more than 10 character";
+                error.innerHTML = text;
+                return false
+            }
+            alert("Form Submitted Successfully")
+            return true
+
+
+        }
         return (
             <div>
             <h1>CONTACT ME</h1>
@@ -25,11 +58,12 @@ export class contact extends Component {
                     <li><a href="https://www.instagram.com/biswajit.18/"><img src={instagram} alt="" /></a></li>
                     <li><a href=""><img src={whatsapp} alt="" /></a></li>
                     </ul>
-                    <form action="" className="cont-form">
+                    <form action="https://formspree.io/f/mgerrnnb" method="POST" className="cont-form" onSubmit={validation}>
+                    <div id="error"></div>
                     <input type="text" name="name" id="name" placeholder="Full name"/><br />
                     <input type="text" name="email" id="email" placeholder="Email Id" /><br />
-                    <input type="text" placeholder="Contact No."/><br />
-                    <textarea name="message" id="" cols="30" rows="10" placeholder="Type your message here"></textarea><br />
+                    <input type="text" id="phone" placeholder="Contact No."/><br />
+                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Type your message here"></textarea><br />
                     <input type="submit" />
                     
                     </form>
