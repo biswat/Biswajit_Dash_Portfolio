@@ -25,6 +25,14 @@ export class contact extends Component {
                     <li><a href="https://www.instagram.com/biswajit.18/"><img src={instagram} alt="" /></a></li>
                     <li><a href=""><img src={whatsapp} alt="" /></a></li>
                     </ul>
+                    <form action="" className="cont-form">
+                    <input type="text" name="name" id="name" placeholder="Full name"/><br />
+                    <input type="text" name="email" id="email" placeholder="Email Id" /><br />
+                    <input type="text" placeholder="Contact No."/><br />
+                    <textarea name="message" id="" cols="30" rows="10" placeholder="Type your message here"></textarea><br />
+                    <input type="submit" />
+                    
+                    </form>
                 </div>
             </div>
         )

@@ -134,7 +134,7 @@
 }
 
 .contact {
-  height: 250px;
+  /* height: 250px; */
   padding: 10px;
   width: 60%;
   margin-left: 20%;
@@ -179,6 +179,15 @@
 .cont li {
   display: inline-block;
   padding: 10px;
+}
+
+.cont-form {
+  padding-left: 25%;
+  padding-right: 25%;
+}
+
+.cont-form input, textarea {
+  width: 100%;
 }
 
 @media (max-width: 783px) {
