@@ -44,10 +44,10 @@ export default function header() {
         <div className="head" onMouseMove= {mouseOn} onMouseOut= {mouseOut}>
         <h1 className="h1">Biswajit_Dash</h1>
             <ul className="list">
-                <li> <b className="h2"><a href="#education">Education</a></b></li>
-                <li> <b className="h2"><a href="#project">Projects</a></b> </li>
-                <li> <b className="h2"><a href="#experiance">Experience</a></b> </li>
-                <li> <b className="h2"><a href="#contact">Contact</a></b> </li>
+                <li> <b><a href="#education" className="h2">Education</a></b></li>
+                <li> <b><a href="#project" className="h2">Projects</a></b> </li>
+                <li> <b><a href="#experiance"  className="h2">Experience</a></b> </li>
+                <li> <b><a href="#contact" className="h2">Contact</a></b> </li>
             </ul>
             <p> <b><marquee behavior="scroll" direction="left" class="add">hay! i am Biswajit Dash a web developer, loved to work with javascript</marquee></b> </p>
         </div>

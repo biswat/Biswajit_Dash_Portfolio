@@ -57,6 +57,7 @@
   margin-right: 400px;
 }
 
+
 /* .img {
   height: 300px;
   width: 500px;
@@ -131,6 +132,10 @@
 .h1 {
   text-align: center;
   padding-top: 10px;
+}
+
+.h2 {
+  color: black;
 }
 
 .contact {
