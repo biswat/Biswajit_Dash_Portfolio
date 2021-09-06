@@ -13,7 +13,7 @@ export class experiance extends Component {
             <div>
             <h1>EXPERIANCE</h1>
             
-            <div className="exp">
+            <div className="exp" id="experiance">
                 <div className="experiance">
                     <p>I feel blessed to share my work with following companies</p>
                     <img  src={img} alt="" />

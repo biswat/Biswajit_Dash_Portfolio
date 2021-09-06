@@ -42,7 +42,7 @@ export class projects extends React.Component {
         return (
             <div>
             <h1>PROJECTS</h1>
-                <div className="project pro">
+                <div className="project pro"  id="project">
                 <ul className="pro-det" onMouseMove = {this._onMouseMove} ref="project" style={maskStyle}>
 
                 <li className="">

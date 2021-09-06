@@ -49,7 +49,7 @@ export class contact extends Component {
         return (
             <div>
             <h1>CONTACT ME</h1>
-                <div className="contact">
+                <div className="contact" id="contact">
                     <b>You can contact me by : -</b>
                     <ul className="cont">
                     <li><a href="https://github.com/biswat"><img src={github} alt="" /></a></li>

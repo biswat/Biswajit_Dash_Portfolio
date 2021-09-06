@@ -1,6 +1,9 @@
 import React from 'react'
 import '../App.css'
 import img from '../assests/images/half.svg'
+import './projects'
+import './experiance'
+import './contact'
 
 export default function header() {
 
@@ -41,15 +44,15 @@ export default function header() {
         <div className="head" onMouseMove= {mouseOn} onMouseOut= {mouseOut}>
         <h1 className="h1">Biswajit_Dash</h1>
             <ul className="list">
-                <li> <b className="h2">Education</b> </li>
-                <li> <b className="h2">Projects</b> </li>
-                <li> <b className="h2">Experience</b> </li>
-                <li> <b className="h2">Contact</b> </li>
+                <li> <b className="h2"><a href="#education">Education</a></b></li>
+                <li> <b className="h2"><a href="#project">Projects</a></b> </li>
+                <li> <b className="h2"><a href="#experiance">Experience</a></b> </li>
+                <li> <b className="h2"><a href="#contact">Contact</a></b> </li>
             </ul>
             <p> <b><marquee behavior="scroll" direction="left" class="add">hay! i am Biswajit Dash a web developer, loved to work with javascript</marquee></b> </p>
         </div>
         <h1>EDUCATION</h1>
-        <div>
+        <div id="education">
         
         <img className="edu" src={img} alt="" />
         <div className="edu det" style={{fontSize:'1.26vw'}}>
