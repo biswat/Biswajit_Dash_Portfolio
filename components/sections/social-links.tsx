@@ -5,6 +5,7 @@ import {
   IconMail,
 } from "@tabler/icons-react"
 
+import { Button } from "@/components/ui/button"
 import { socials, type SocialIcon } from "@/lib/content"
 import { cn } from "@/lib/utils"
 
@@ -22,16 +23,15 @@ export function SocialIconRow({ className }: { className?: string }) {
       {socials.map((social) => {
         const Icon = ICONS[social.icon]
         return (
-          <a
+          <Button
             key={social.label}
-            href={social.href}
-            target="_blank"
-            rel="noreferrer"
+            variant="ghost"
+            size="icon-sm"
             aria-label={social.label}
-            className="text-muted-foreground hover:text-foreground hover:bg-muted/50 flex size-8 items-center justify-center transition-colors"
+            render={<a href={social.href} target="_blank" rel="noreferrer" />}
           >
             <Icon className="size-4" stroke={1.5} />
-          </a>
+          </Button>
         )
       })}
     </div>

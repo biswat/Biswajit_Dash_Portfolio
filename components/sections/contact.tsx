@@ -4,9 +4,8 @@ import { HudPanel } from "@/components/hud/hud-panel"
 import { DecodeText } from "@/components/motion/decode-text"
 import { Reveal } from "@/components/motion/reveal"
 import { SectionShell } from "@/components/hud/section-shell"
-import { buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { hero } from "@/lib/content"
-import { cn } from "@/lib/utils"
 
 import { SocialRows } from "./social-links"
 
@@ -27,26 +26,21 @@ export function Contact() {
               rest work too.
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <a
-                href={`mailto:${hero.email}`}
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "rounded-none"
-                )}
+              <Button
+                variant="outline"
+                className="rounded-none"
+                render={<a href={`mailto:${hero.email}`} />}
               >
                 {hero.email}
-              </a>
-              <a
-                href={hero.resume}
-                download
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "rounded-none"
-                )}
+              </Button>
+              <Button
+                variant="outline"
+                className="rounded-none"
+                render={<a href={hero.resume} download />}
               >
                 <IconDownload data-icon="inline-start" />
                 Resume
-              </a>
+              </Button>
             </div>
             <SocialRows />
           </div>

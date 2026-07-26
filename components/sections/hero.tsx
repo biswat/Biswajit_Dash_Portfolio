@@ -4,10 +4,9 @@ import { HudPanel } from "@/components/hud/hud-panel"
 import { Stat } from "@/components/hud/stat"
 import { DecodeText } from "@/components/motion/decode-text"
 import { Reveal } from "@/components/motion/reveal"
-import { buttonVariants } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { EncryptedText } from "@/components/ui/encrypted-text"
 import { hero } from "@/lib/content"
-import { cn } from "@/lib/utils"
 
 import { SocialIconRow } from "./social-links"
 
@@ -45,23 +44,17 @@ export function Hero() {
 
       <Reveal delay={0.9}>
         <div className="flex flex-wrap items-center gap-3">
-          <a
-            href={hero.resume}
-            download
-            className={cn(buttonVariants(), "rounded-none")}
-          >
+          <Button className="rounded-none" render={<a href={hero.resume} download />}>
             <IconDownload data-icon="inline-start" />
             Resume
-          </a>
-          <a
-            href="#contact"
-            className={cn(
-              buttonVariants({ variant: "outline" }),
-              "rounded-none"
-            )}
+          </Button>
+          <Button
+            variant="outline"
+            className="rounded-none"
+            render={<a href="#contact" />}
           >
             Contact →
-          </a>
+          </Button>
         </div>
       </Reveal>
 
