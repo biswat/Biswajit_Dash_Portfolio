@@ -8,6 +8,7 @@ import { coord, DASH, duration, nullish, offset } from "@/lib/format"
 import { Separator } from "@/components/ui/separator"
 
 import { useClientInfoContext } from "./client-info-provider"
+import { ScrollProgressBars } from "./scroll-progress-bars"
 import { Stat, StatGroup } from "./stat"
 
 export function HudTopRail() {
@@ -186,6 +187,7 @@ export function HudBottomRail() {
           value={session.visible ? "active" : "blurred"}
           className="hidden lg:flex"
         />
+        <ScrollProgressBars className="ml-auto pl-3" />
       </div>
     </footer>
   )
