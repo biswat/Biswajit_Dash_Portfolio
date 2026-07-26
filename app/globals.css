@@ -132,10 +132,15 @@
   }
 }
 
-.shape {
-  width: 320px;
-  height: 200px;
-  clip-path: path(
-    "M23.1,5.6 Q28.8,0 36.8,0 L184,0 Q192,0 196.4,6.7 L203.6,17.3 Q208,24 216,24 L270.4,24 Q278.4,24 282.8,17.3 L290,6.7 Q294.4,0 302.4,0 L312,0 Q320,0 320,8 L320,164 Q320,172 314.3,177.6 L296.9,194.4 Q291.2,200 283.2,200 L136,200 Q128,200 123.6,193.3 L116.4,182.7 Q112,176 104,176 L49.6,176 Q41.6,176 37.2,182.7 L30,193.3 Q25.6,200 17.6,200 L8,200 Q0,200 0,192 L0,36 Q0,28 5.7,22.4 L23.1,5.6 Z"
+/* Panel silhouettes live in components/hud/hud-panel.tsx. */
+
+/* Horizontal CRT scanlines; color via currentColor, intensity via opacity. */
+@utility scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    currentColor 0,
+    currentColor 1px,
+    transparent 1px,
+    transparent 4px
   );
 }
