@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { MotionConfig } from "motion/react"
 
-import { PageSkeleton } from "@/components/hud/page-skeleton"
+import { PageSkeleton } from '@/components/hud'
 
 export function MotionProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)

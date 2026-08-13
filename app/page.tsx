@@ -1,9 +1,6 @@
-import { HudPanelDefs } from "@/components/hud/hud-panel"
-import { MotionProvider } from "@/components/motion/motion-provider"
-import { Contact } from "@/components/sections/contact"
-import { Experience } from "@/components/sections/experience"
-import { Hero } from "@/components/sections/hero"
-import { Skills } from "@/components/sections/skills"
+import { HudPanelDefs } from '@/components/hud'
+import { MotionProvider } from '@/components/motion'
+import { Contact, Experience, Hero, Skills } from '@/components/sections'
 
 export default function Page() {
   return (

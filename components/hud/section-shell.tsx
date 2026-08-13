@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react"
 
-import { DecodeText } from "@/components/motion/decode-text"
+import { DecodeText } from '@/components/motion'
 import { cn } from "@/lib/utils"
 
 /**

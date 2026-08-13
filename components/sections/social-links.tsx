@@ -5,7 +5,7 @@ import {
   IconMail,
 } from "@tabler/icons-react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui'
 import { socials, type SocialIcon } from "@/lib/content"
 import { cn } from "@/lib/utils"
 

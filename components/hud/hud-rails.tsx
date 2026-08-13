@@ -5,7 +5,7 @@ import { useDevice } from "@/hooks/use-device"
 import { useNetwork } from "@/hooks/use-network"
 import { useSessionTelemetry } from "@/hooks/use-session-telemetry"
 import { coord, DASH, duration, nullish, offset } from "@/lib/format"
-import { Separator } from "@/components/ui/separator"
+import { Separator } from '@/components/ui'
 
 import { useClientInfoContext } from "./client-info-provider"
 import { ScrollProgressBars } from "./scroll-progress-bars"
