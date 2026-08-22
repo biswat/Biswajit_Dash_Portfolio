@@ -44,15 +44,11 @@ export function Hero() {
 
       <Reveal delay={0.9}>
         <div className="flex flex-wrap items-center gap-3">
-          <Button className="rounded-none" render={<a href={hero.resume} download />}>
+          <Button render={<a href={hero.resume} download />}>
             <IconDownload data-icon="inline-start" />
             Resume
           </Button>
-          <Button
-            variant="outline"
-            className="rounded-none"
-            render={<a href="#contact" />}
-          >
+          <Button variant="outline" render={<a href="#contact" />}>
             Contact →
           </Button>
         </div>

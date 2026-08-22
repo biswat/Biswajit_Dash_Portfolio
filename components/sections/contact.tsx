@@ -28,16 +28,11 @@ export function Contact() {
             <div className="flex flex-wrap items-center gap-3">
               <Button
                 variant="outline"
-                className="rounded-none"
                 render={<a href={`mailto:${hero.email}`} />}
               >
                 {hero.email}
               </Button>
-              <Button
-                variant="outline"
-                className="rounded-none"
-                render={<a href={hero.resume} download />}
-              >
+              <Button variant="outline" render={<a href={hero.resume} download />}>
                 <IconDownload data-icon="inline-start" />
                 Resume
               </Button>

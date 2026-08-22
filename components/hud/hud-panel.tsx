@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-type Variant = "console" | "cut" | "ledger" | "strip" | "bracket"
+type Variant = "console" | "skills" | "experience" | "strip" | "bracket"
 
 /**
  * The console silhouette (contact panel): a recessed titlebar band across the
@@ -21,8 +21,50 @@ const CONSOLE_PATH_NORMALIZED =
 
 const CONSOLE_CLIP_ID = "hud-clip-console"
 
+/**
+ * Dog-bone silhouette (experience entries): a valley notch cut into the top
+ * edge and a matching valley notch cut into the bottom edge, so stacked
+ * timeline panels read as linked segments rather than independent cards.
+ */
+const EXPERIENCE_PATH =
+  "M22.7,2.7 Q25.6,0 29.6,0 L72.8,0 Q76.8,0 79.7,2.7 L99.5,21.3 Q102.4,24 106.4,24 L162.4,24 Q166.4,24 169.3,21.3 L189.1,2.7 Q192,0 196,0 L277.6,0 Q281.6,0 285,2.1 L316.6,21.9 Q320,24 320,28 L320,168 Q320,172 317.1,174.8 L294.1,197.2 Q291.2,200 287.2,200 L247.2,200 Q243.2,200 240.3,197.3 L220.5,178.7 Q217.6,176 213.6,176 L157.6,176 Q153.6,176 150.7,178.7 L130.9,197.3 Q128,200 124,200 L42.4,200 Q38.4,200 35.3,197.4 L3.1,170.6 Q0,168 0,164 L0,28 Q0,24 2.9,21.3 L22.7,2.7 Z"
+
+const EXPERIENCE_PATH_NORMALIZED =
+  "M0.070938,0.0135 Q0.08,0 0.0925,0 L0.2275,0 Q0.24,0 0.249063,0.0135 L0.310937,0.1065 Q0.32,0.12 0.3325,0.12 L0.5075,0.12 Q0.52,0.12 0.529062,0.1065 L0.590938,0.0135 Q0.6,0 0.6125,0 L0.8675,0 Q0.88,0 0.890625,0.0105 L0.989375,0.1095 Q1,0.12 1,0.14 L1,0.84 Q1,0.86 0.990938,0.874 L0.919063,0.986 Q0.91,1 0.8975,1 L0.7725,1 Q0.76,1 0.750938,0.9865 L0.689063,0.8935 Q0.68,0.88 0.6675,0.88 L0.4925,0.88 Q0.48,0.88 0.470937,0.8935 L0.409062,0.9865 Q0.4,1 0.3875,1 L0.1325,1 Q0.12,1 0.110312,0.987 L0.009687,0.853 Q0,0.84 0,0.82 L0,0.14 Q0,0.12 0.009062,0.1065 L0.070938,0.0135 Z"
+
+const EXPERIENCE_CLIP_ID = "hud-clip-experience"
+
+/**
+ * Skills card silhouette: a valley notch cut into the top-right (clears the
+ * header tag) and a matching notch cut into the bottom-left, giving each
+ * grid card an asymmetric HUD read.
+ */
+const SKILLS_PATH =
+  "M23.1,5.6 Q28.8,0 36.8,0 L184,0 Q192,0 196.4,6.7 L203.6,17.3 Q208,24 216,24 L270.4,24 Q278.4,24 282.8,17.3 L290,6.7 Q294.4,0 302.4,0 L312,0 Q320,0 320,8 L320,164 Q320,172 314.3,177.6 L296.9,194.4 Q291.2,200 283.2,200 L136,200 Q128,200 123.6,193.3 L116.4,182.7 Q112,176 104,176 L49.6,176 Q41.6,176 37.2,182.7 L30,193.3 Q25.6,200 17.6,200 L8,200 Q0,200 0,192 L0,36 Q0,28 5.7,22.4 L23.1,5.6 Z"
+
+const SKILLS_PATH_NORMALIZED =
+  "M0.072188,0.028 Q0.09,0 0.115,0 L0.575,0 Q0.6,0 0.61375,0.0335 L0.63625,0.0865 Q0.65,0.12 0.675,0.12 L0.845,0.12 Q0.87,0.12 0.88375,0.0865 L0.90625,0.0335 Q0.92,0 0.945,0 L0.975,0 Q1,0 1,0.04 L1,0.82 Q1,0.86 0.982187,0.888 L0.927812,0.972 Q0.91,1 0.885,1 L0.425,1 Q0.4,1 0.38625,0.9665 L0.36375,0.9135 Q0.35,0.88 0.325,0.88 L0.155,0.88 Q0.13,0.88 0.11625,0.9135 L0.09375,0.9665 Q0.08,1 0.055,1 L0.025,1 Q0,1 0,0.96 L0,0.18 Q0,0.14 0.017813,0.112 L0.072188,0.028 Z"
+
+const SKILLS_CLIP_ID = "hud-clip-skills"
+
+/**
+ * Chamfered pill silhouette shared by every Button (see
+ * components/ui/button.tsx): rounded cuts on the top-left and bottom-right
+ * corners, tight rounded corners on the other two. Button applies this clip
+ * path by hardcoding the `hud-clip-buttons` id (Tailwind's class scanner
+ * needs a literal string) rather than importing it from here — keep that
+ * id in sync with BUTTON_CLIP_ID below if it ever changes.
+ */
+const BUTTON_PATH_NORMALIZED =
+  "M0.086875,0.021 Q0.1,0 0.11875,0 L0.98125,0 Q1,0 1,0.03 L1,0.81 Q1,0.84 0.986875,0.861 L0.913125,0.979 Q0.9,1 0.88125,1 L0.01875,1 Q0,1 0,0.97 L0,0.19 Q0,0.16 0.013125,0.139 L0.086875,0.021 Z"
+
+const BUTTON_CLIP_ID = "hud-clip-buttons"
+
 const SVG_GEOMETRIES = [
   { clipId: CONSOLE_CLIP_ID, normalizedPath: CONSOLE_PATH_NORMALIZED },
+  { clipId: EXPERIENCE_CLIP_ID, normalizedPath: EXPERIENCE_PATH_NORMALIZED },
+  { clipId: SKILLS_CLIP_ID, normalizedPath: SKILLS_PATH_NORMALIZED },
+  { clipId: BUTTON_CLIP_ID, normalizedPath: BUTTON_PATH_NORMALIZED },
 ]
 
 /**
@@ -32,11 +74,6 @@ const SVG_GEOMETRIES = [
  * the translucent card wash layered inside it. Fixed-px cuts stay crisp at
  * any aspect ratio.
  */
-const CUT_CLIP =
-  "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))"
-const CUT_CLIP_INNER =
-  "polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px))"
-
 const STRIP_CLIP =
   "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)"
 const STRIP_CLIP_INNER =
@@ -44,8 +81,8 @@ const STRIP_CLIP_INNER =
 
 const CONTENT_PADDING: Record<Variant, string> = {
   console: "px-5 pt-7 pb-10 sm:px-6",
-  cut: "p-5 sm:p-6",
-  ledger: "px-5 pt-8 pb-5 sm:px-6",
+  skills: "px-5 pt-7 pb-6 sm:px-6",
+  experience: "px-5 pt-7 pb-7 sm:px-6",
   strip: "px-4 py-3",
   bracket: "p-5 sm:p-6",
 }
@@ -119,34 +156,53 @@ function ConsoleFrame() {
   )
 }
 
-function CutFrame() {
+function SkillsFrame() {
   return (
     <>
       <div
-        className="bg-border/80 group-hover/panel:bg-foreground/30 absolute inset-0 transition-colors duration-300"
-        style={{ clipPath: CUT_CLIP }}
+        className="bg-card/40 absolute inset-0 backdrop-blur-sm"
+        style={{ clipPath: `url(#${SKILLS_CLIP_ID})` }}
       />
-      <div
-        className="bg-background absolute inset-px"
-        style={{ clipPath: CUT_CLIP_INNER }}
+      <svg
+        aria-hidden
+        viewBox="0 0 320 200"
+        preserveAspectRatio="none"
+        className="text-border pointer-events-none absolute inset-0 h-full w-full transition-colors duration-300 group-hover/panel:text-foreground/30"
       >
-        <CardWash />
-      </div>
-      <span aria-hidden className="bg-foreground/25 absolute top-0 left-5 h-0.5 w-8" />
+        <path
+          d={SKILLS_PATH}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1}
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
     </>
   )
 }
 
-function LedgerFrame() {
+function ExperienceFrame() {
   return (
     <>
-      <div className="border-border/60 bg-card/40 group-hover/panel:border-foreground/25 absolute inset-0 border backdrop-blur-sm transition-colors duration-300" />
-      {/* inner spine doubling the timeline rail */}
-      <span
-        aria-hidden
-        className="bg-foreground/15 group-hover/panel:bg-foreground/30 absolute inset-y-1 left-1 w-0.5 transition-colors duration-300"
+      <div
+        className="bg-card/40 absolute inset-0 backdrop-blur-sm"
+        style={{ clipPath: `url(#${EXPERIENCE_CLIP_ID})` }}
       />
-      {/* tick marks protruding from the right edge */}
+      <svg
+        aria-hidden
+        viewBox="0 0 320 200"
+        preserveAspectRatio="none"
+        className="text-border pointer-events-none absolute inset-0 h-full w-full transition-colors duration-300 group-hover/panel:text-foreground/30"
+      >
+        <path
+          d={EXPERIENCE_PATH}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1}
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+      {/* tick marks protruding from the right edge, echoing the old ledger rail */}
       <span aria-hidden className="bg-border absolute top-1/3 -right-2 h-px w-2" />
       <span aria-hidden className="bg-border absolute top-2/3 -right-2 h-px w-2" />
     </>
@@ -187,8 +243,8 @@ function BracketFrame() {
 
 const FRAMES: Record<Variant, () => React.ReactNode> = {
   console: ConsoleFrame,
-  cut: CutFrame,
-  ledger: LedgerFrame,
+  skills: SkillsFrame,
+  experience: ExperienceFrame,
   strip: StripFrame,
   bracket: BracketFrame,
 }
@@ -205,10 +261,11 @@ export function HudPanel({
    * Every section gets its own frame:
    * - "console" — SVG silhouette with titlebar band + staircase notch; only
    *   for reliably landscape panels (contact).
-   * - "cut" — opposite-corner 14px chamfers, CSS, safe at any aspect (skills
-   *   cards).
-   * - "ledger" — hairline rect with inner spine and an attached header tab
-   *   (experience entries; header/index render in the tab, not inline).
+   * - "skills" — SVG silhouette with valley notches top-right and
+   *   bottom-left, sized for the skills grid cards.
+   * - "experience" — SVG silhouette with matching top/bottom valley notches
+   *   so stacked timeline entries read as linked segments; header/index
+   *   render in an attached tab, not inline.
    * - "strip" — capped readout bar with chamfered right end (hero stats).
    * - "bracket" — plain rect with corner brackets, the generic fallback.
    */
@@ -220,7 +277,7 @@ export function HudPanel({
   children: React.ReactNode
 }) {
   const Frame = FRAMES[variant]
-  const headerInTab = variant === "ledger"
+  const headerInTab = variant === "experience"
 
   return (
     <div

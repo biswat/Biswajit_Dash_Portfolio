@@ -11,7 +11,7 @@ export function Skills() {
         {skillGroups.map((group, i) => (
           <StaggerItem key={group.title}>
             <HudPanel
-              variant="cut"
+              variant="skills"
               header={group.title}
               index={`SYS.${String(i + 1).padStart(2, "0")}`}
               className="h-full"

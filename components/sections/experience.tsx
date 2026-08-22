@@ -30,7 +30,7 @@ export function Experience() {
                 className="border-foreground/60 bg-background absolute -top-1 -left-6 size-2 border"
               />
               <HudPanel
-                variant="ledger"
+                variant="experience"
                 header={exp.company}
                 index={`${exp.start} — ${exp.end}`.toUpperCase()}
               >
