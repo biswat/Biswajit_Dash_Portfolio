@@ -1,13 +1,17 @@
 "use client"
 
+import { useMemo } from "react"
+
 import { useClock } from "@/hooks/use-clock"
 import { useDevice } from "@/hooks/use-device"
 import { useNetwork } from "@/hooks/use-network"
 import { useSessionTelemetry } from "@/hooks/use-session-telemetry"
+import { hero } from "@/lib/content"
 import { coord, DASH, duration, nullish, offset } from "@/lib/format"
 import { Separator } from "@/components/ui/separator"
 
 import { useClientInfoContext } from "./client-info-provider"
+import { Globe, type GlobeArc, type GlobeMarker } from "./globe"
 import { ScrollProgressBars } from "./scroll-progress-bars"
 import { Stat, StatGroup } from "./stat"
 
@@ -99,12 +103,63 @@ export function HudLeftRail() {
   )
 }
 
+/** Decorative network nodes, forming a sparse global spanning tree off `hero.coordinates`. */
+const NETWORK_NODES: Record<string, [number, number]> = {
+  sanFrancisco: [37.7749, -122.4194],
+  newYork: [40.7128, -74.006],
+  london: [51.5074, -0.1278],
+  singapore: [1.3521, 103.8198],
+  sydney: [-33.8688, 151.2093],
+  nairobi: [-1.2921, 36.8219],
+  honolulu: [21.3069, -157.8583],
+}
+
+const NETWORK_ARCS: GlobeArc[] = [
+  { from: hero.coordinates, to: NETWORK_NODES.london },
+  { from: hero.coordinates, to: NETWORK_NODES.singapore },
+  { from: hero.coordinates, to: NETWORK_NODES.nairobi },
+  { from: NETWORK_NODES.london, to: NETWORK_NODES.newYork },
+  { from: NETWORK_NODES.newYork, to: NETWORK_NODES.sanFrancisco },
+  { from: NETWORK_NODES.sanFrancisco, to: NETWORK_NODES.honolulu },
+  { from: NETWORK_NODES.singapore, to: NETWORK_NODES.sydney },
+]
+
+const NETWORK_MARKERS: GlobeMarker[] = [
+  { location: hero.coordinates, size: 0.06 },
+  ...Object.values(NETWORK_NODES).map((location) => ({
+    location,
+    size: 0.03,
+  })),
+]
+
 export function HudRightRail() {
   const device = useDevice()
+  const { data } = useClientInfoContext()
+
+  const lat = data?.latitude ?? null
+  const lon = data?.longitude ?? null
+
+  const markers = useMemo<GlobeMarker[]>(() => {
+    if (lat === null || lon === null) return NETWORK_MARKERS
+    return [...NETWORK_MARKERS, { location: [lat, lon], size: 0.045 }]
+  }, [lat, lon])
+
+  const arcs = useMemo<GlobeArc[]>(() => {
+    if (lat === null || lon === null) return NETWORK_ARCS
+    return [...NETWORK_ARCS, { from: hero.coordinates, to: [lat, lon] }]
+  }, [lat, lon])
+
+  const place = [data?.city, data?.country].filter(Boolean).join(", ")
 
   return (
     <aside className="fixed top-8 right-0 bottom-8 z-40 hidden w-44 border-l border-border/60 bg-background/80 px-3 py-4 backdrop-blur-md lg:block">
       <div className="flex flex-col gap-5">
+        <StatGroup title="link">
+          <Globe markers={markers} arcs={arcs} className="mx-auto w-28" />
+          <Stat label="origin" value={hero.location} accent className="mt-1" />
+          <Stat label="peer" value={place || DASH} />
+        </StatGroup>
+
         <StatGroup title="system">
           <Stat label="os" value={device?.os ?? DASH} accent />
           <Stat label="browser" value={device?.browser ?? DASH} accent />

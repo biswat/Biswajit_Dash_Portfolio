@@ -38,6 +38,8 @@ export interface Hero {
   tagline: string
   statusLine: string
   location: string
+  /** [latitude, longitude], for the contact globe marker. */
+  coordinates: [number, number]
   email: string
   /** Path or URL to the downloadable resume. */
   resume: string
@@ -50,6 +52,7 @@ export const hero: Hero = {
     "I build scalable, reliable backend systems and APIs — primarily in Node.js — from database schema to production infrastructure.",
   statusLine: "open to opportunities",
   location: "Bhubaneswar, IN",
+  coordinates: [20.2961, 85.8245],
   email: "biswat@gmail.com",
   resume: "/resume.pdf",
 }
