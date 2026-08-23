@@ -42,7 +42,7 @@ export function SocialIconRow({ className }: { className?: string }) {
 export function SocialRows({ className }: { className?: string }) {
   return (
     <div className={cn("flex flex-col", className)}>
-      {socials.map((social) => {
+      {socials.map((social, i) => {
         const Icon = ICONS[social.icon]
         return (
           <a
@@ -50,16 +50,26 @@ export function SocialRows({ className }: { className?: string }) {
             href={social.href}
             target="_blank"
             rel="noreferrer"
-            className="group/social border-border/40 flex items-center gap-3 border-b py-2.5 transition-transform duration-200 last:border-b-0 hover:translate-x-1"
+            className="group/social relative flex items-center gap-3 border-b border-border py-2.5 pl-3 transition-transform duration-200 last:border-b-0 hover:translate-x-1"
           >
+            {/* channel cursor: a caret that lights up on the active row */}
+            <span
+              aria-hidden
+              className="absolute left-0 font-mono text-[10px] text-muted-foreground/0 transition-colors duration-200 group-hover/social:text-foreground"
+            >
+              &gt;
+            </span>
+            <span className="font-mono text-[10px] text-muted-foreground/40 tabular-nums">
+              {String(i + 1).padStart(2, "0")}
+            </span>
             <Icon
-              className="text-muted-foreground group-hover/social:text-foreground size-4 transition-colors"
+              className="size-4 text-muted-foreground transition-colors group-hover/social:text-foreground"
               stroke={1.5}
             />
-            <span className="text-foreground/80 group-hover/social:text-foreground text-sm transition-colors">
+            <span className="text-sm text-foreground/80 transition-colors group-hover/social:text-foreground">
               {social.label}
             </span>
-            <span className="text-muted-foreground/60 ml-auto truncate font-mono text-[11px]">
+            <span className="ml-auto truncate font-mono text-[11px] text-muted-foreground/60">
               {social.handle}
             </span>
           </a>

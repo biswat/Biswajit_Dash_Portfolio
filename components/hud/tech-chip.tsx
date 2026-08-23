@@ -25,23 +25,23 @@ export function TechChip({
     <span className={cn("relative inline-flex", className)}>
       <span
         aria-hidden
-        className="bg-border/80 absolute inset-0"
+        className="absolute inset-0 bg-foreground/25"
         style={{ clipPath: CHIP_CLIP }}
       />
       <span
         className={cn(
-          "bg-background relative m-px inline-flex items-center gap-1.5 px-2 py-0.5 font-mono text-[10px] tracking-[0.08em]",
+          "relative m-px inline-flex items-center gap-1.5 bg-background px-2 py-0.5 font-mono text-[10px] tracking-[0.08em]",
           level === "core" ? "text-foreground" : "text-muted-foreground"
         )}
         style={{ clipPath: CHIP_CLIP_INNER }}
       >
         {level === "core" && (
-          <span aria-hidden className="bg-foreground/70 size-1 shrink-0" />
+          <span aria-hidden className="size-1 shrink-0 bg-foreground/70" />
         )}
         {level === "familiar" && (
           <span
             aria-hidden
-            className="border-muted-foreground/50 size-1 shrink-0 border"
+            className="size-1 shrink-0 border border-muted-foreground/50"
           />
         )}
         {name}

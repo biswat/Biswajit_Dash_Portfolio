@@ -2,237 +2,248 @@ import { cn } from "@/lib/utils"
 
 type Variant = "console" | "skills" | "experience" | "strip" | "bracket"
 
-/**
- * The console silhouette (contact panel): a recessed titlebar band across the
- * top-right, a two-step staircase notch into the bottom-right corner, and
- * asymmetric chamfers on the left corners. Drawn in a 320×200 design space.
- * The same geometry is used twice — normalized to 0–1 for the
- * objectBoundingBox clipPath (so the clipped background scales with the
- * panel) and raw for the stroke overlay (preserveAspectRatio="none" +
- * non-scaling-stroke keeps the outline crisp). SVG silhouettes distort on
- * tall or variable-aspect panels — reserve them for reliably landscape
- * panels and use the fixed-px CSS variants everywhere else.
- */
-const CONSOLE_PATH =
-  "M8,0 L88,0 L100,14 L310,14 L320,24 L320,170 L308,170 L308,185 L293,185 L293,200 L20,200 L0,180 L0,8 Z"
-
-const CONSOLE_PATH_NORMALIZED =
-  "M0.025,0 L0.275,0 L0.3125,0.07 L0.96875,0.07 L1,0.12 L1,0.85 L0.9625,0.85 L0.9625,0.925 L0.915625,0.925 L0.915625,1 L0.0625,1 L0,0.9 L0,0.04 Z"
-
-const CONSOLE_CLIP_ID = "hud-clip-console"
+type Corner = "tl" | "tr" | "br" | "bl"
+type Corners = Partial<Record<Corner, number>>
 
 /**
- * Dog-bone silhouette (experience entries): a valley notch cut into the top
- * edge and a matching valley notch cut into the bottom edge, so stacked
- * timeline panels read as linked segments rather than independent cards.
+ * Every silhouette on this page is built from fixed-px 45° corner cuts instead
+ * of a normalized SVG path. An objectBoundingBox clipPath scales with the box,
+ * so one geometry renders as a shallow smear on a wide grid card and a steep
+ * wedge on a tall timeline entry; fixed px keeps the chamfer identical on every
+ * panel, and identical to the buttons and chips, which is what makes the set
+ * read as one instrument rather than five unrelated shapes.
+ *
+ * `shrink` pulls the polygon 1px tighter for the inner (surface) layer: a CSS
+ * border is sliced away along a diagonal, so the hairline is drawn as an outer
+ * layer filled edge-to-edge with the frame color plus a surface layer at
+ * inset-px clipped 1px tighter, leaving exactly 1px of frame showing all round.
  */
-const EXPERIENCE_PATH =
-  "M22.7,2.7 Q25.6,0 29.6,0 L72.8,0 Q76.8,0 79.7,2.7 L99.5,21.3 Q102.4,24 106.4,24 L162.4,24 Q166.4,24 169.3,21.3 L189.1,2.7 Q192,0 196,0 L277.6,0 Q281.6,0 285,2.1 L316.6,21.9 Q320,24 320,28 L320,168 Q320,172 317.1,174.8 L294.1,197.2 Q291.2,200 287.2,200 L247.2,200 Q243.2,200 240.3,197.3 L220.5,178.7 Q217.6,176 213.6,176 L157.6,176 Q153.6,176 150.7,178.7 L130.9,197.3 Q128,200 124,200 L42.4,200 Q38.4,200 35.3,197.4 L3.1,170.6 Q0,168 0,164 L0,28 Q0,24 2.9,21.3 L22.7,2.7 Z"
+function cutPolygon(corners: Corners, shrink = 0) {
+  const cut = (corner: Corner) => {
+    const size = corners[corner] ?? 0
+    return size > 0 ? Math.max(size - shrink, 1) : 0
+  }
 
-const EXPERIENCE_PATH_NORMALIZED =
-  "M0.070938,0.0135 Q0.08,0 0.0925,0 L0.2275,0 Q0.24,0 0.249063,0.0135 L0.310937,0.1065 Q0.32,0.12 0.3325,0.12 L0.5075,0.12 Q0.52,0.12 0.529062,0.1065 L0.590938,0.0135 Q0.6,0 0.6125,0 L0.8675,0 Q0.88,0 0.890625,0.0105 L0.989375,0.1095 Q1,0.12 1,0.14 L1,0.84 Q1,0.86 0.990938,0.874 L0.919063,0.986 Q0.91,1 0.8975,1 L0.7725,1 Q0.76,1 0.750938,0.9865 L0.689063,0.8935 Q0.68,0.88 0.6675,0.88 L0.4925,0.88 Q0.48,0.88 0.470937,0.8935 L0.409062,0.9865 Q0.4,1 0.3875,1 L0.1325,1 Q0.12,1 0.110312,0.987 L0.009687,0.853 Q0,0.84 0,0.82 L0,0.14 Q0,0.12 0.009062,0.1065 L0.070938,0.0135 Z"
+  const tl = cut("tl")
+  const tr = cut("tr")
+  const br = cut("br")
+  const bl = cut("bl")
 
-const EXPERIENCE_CLIP_ID = "hud-clip-experience"
+  const points: string[] = []
+  points.push(tl ? `0 ${tl}px` : "0 0")
+  if (tl) points.push(`${tl}px 0`)
+  points.push(tr ? `calc(100% - ${tr}px) 0` : "100% 0")
+  if (tr) points.push(`100% ${tr}px`)
+  points.push(br ? `100% calc(100% - ${br}px)` : "100% 100%")
+  if (br) points.push(`calc(100% - ${br}px) 100%`)
+  points.push(bl ? `${bl}px 100%` : "0 100%")
+  if (bl) points.push(`0 calc(100% - ${bl}px)`)
+
+  return `polygon(${points.join(", ")})`
+}
 
 /**
- * Skills card silhouette: a valley notch cut into the top-right (clears the
- * header tag) and a matching notch cut into the bottom-left, giving each
- * grid card an asymmetric HUD read.
+ * Cut corners run on one diagonal per variant so neighbouring panels don't
+ * mirror each other: the skills grid leans top-left/bottom-right, the stacked
+ * experience entries lean the other way, and the console gets the widest cuts
+ * as the heaviest panel on the page.
  */
-const SKILLS_PATH =
-  "M23.1,5.6 Q28.8,0 36.8,0 L184,0 Q192,0 196.4,6.7 L203.6,17.3 Q208,24 216,24 L270.4,24 Q278.4,24 282.8,17.3 L290,6.7 Q294.4,0 302.4,0 L312,0 Q320,0 320,8 L320,164 Q320,172 314.3,177.6 L296.9,194.4 Q291.2,200 283.2,200 L136,200 Q128,200 123.6,193.3 L116.4,182.7 Q112,176 104,176 L49.6,176 Q41.6,176 37.2,182.7 L30,193.3 Q25.6,200 17.6,200 L8,200 Q0,200 0,192 L0,36 Q0,28 5.7,22.4 L23.1,5.6 Z"
+const CUTS: Record<Variant, Corners> = {
+  console: { tl: 20, br: 20 },
+  skills: { tl: 14, br: 14 },
+  experience: { tr: 16, bl: 16 },
+  strip: { br: 10 },
+  bracket: {},
+}
 
-const SKILLS_PATH_NORMALIZED =
-  "M0.072188,0.028 Q0.09,0 0.115,0 L0.575,0 Q0.6,0 0.61375,0.0335 L0.63625,0.0865 Q0.65,0.12 0.675,0.12 L0.845,0.12 Q0.87,0.12 0.88375,0.0865 L0.90625,0.0335 Q0.92,0 0.945,0 L0.975,0 Q1,0 1,0.04 L1,0.82 Q1,0.86 0.982187,0.888 L0.927812,0.972 Q0.91,1 0.885,1 L0.425,1 Q0.4,1 0.38625,0.9665 L0.36375,0.9135 Q0.35,0.88 0.325,0.88 L0.155,0.88 Q0.13,0.88 0.11625,0.9135 L0.09375,0.9665 Q0.08,1 0.055,1 L0.025,1 Q0,1 0,0.96 L0,0.18 Q0,0.14 0.017813,0.112 L0.072188,0.028 Z"
+const ALL_CORNERS: Corner[] = ["tl", "tr", "br", "bl"]
 
-const SKILLS_CLIP_ID = "hud-clip-skills"
-
-const SVG_GEOMETRIES = [
-  { clipId: CONSOLE_CLIP_ID, normalizedPath: CONSOLE_PATH_NORMALIZED },
-  { clipId: EXPERIENCE_CLIP_ID, normalizedPath: EXPERIENCE_PATH_NORMALIZED },
-  { clipId: SKILLS_CLIP_ID, normalizedPath: SKILLS_PATH_NORMALIZED },
-]
-
-/**
- * CSS variants draw their frame with two stacked clip-path layers: an outer
- * layer filled with the border color and an inner layer inset 1px filled with
- * the page background (so the frame fill never tints the panel surface), with
- * the translucent card wash layered inside it. Fixed-px cuts stay crisp at
- * any aspect ratio.
- */
-const STRIP_CLIP =
-  "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)"
-const STRIP_CLIP_INNER =
-  "polygon(0 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%)"
+/** Variants whose header/index render as a titlebar band, not inline text. */
+const BANDED: Variant[] = ["console", "skills", "experience"]
 
 const CONTENT_PADDING: Record<Variant, string> = {
-  console: "px-5 pt-7 pb-10 sm:px-6",
-  skills: "px-5 pt-7 pb-6 sm:px-6",
-  experience: "px-5 pt-7 pb-7 sm:px-6",
+  console: "px-5 pt-6 pb-8 sm:px-7",
+  skills: "px-5 pt-4 pb-5 sm:px-6",
+  experience: "px-5 pt-5 pb-6 sm:px-6",
   strip: "px-4 py-3",
   bracket: "p-5 sm:p-6",
 }
 
+/** L-brackets sit only on the square corners — a cut corner gets a tick. */
+const BRACKET_EDGES: Record<Corner, string> = {
+  tl: "top-0 left-0 border-t border-l",
+  tr: "top-0 right-0 border-t border-r",
+  br: "right-0 bottom-0 border-b border-r",
+  bl: "bottom-0 left-0 border-b border-l",
+}
+
 /**
- * Render once per page (page.tsx) so every SVG-silhouette HudPanel can
- * reference its shared objectBoundingBox clipPath.
+ * A hairline drawn parallel to a chamfer, sitting in the triangle the cut
+ * removed — the registration mark that reads as "this edge was machined" rather
+ * than "this corner is missing". Positioned from the top-left in both axes
+ * (`calc(100% - …)` on the far edges) so one translate centers it whichever
+ * corner it belongs to.
  */
-export function HudPanelDefs() {
+function ChamferTick({ corner, size }: { corner: Corner; size: number }) {
+  const offset = Math.max(size / 2 - 3, 2)
+  const length = Math.max(Math.round(size * 0.6), 6)
+  const angle = corner === "tl" || corner === "br" ? "-45deg" : "45deg"
+
   return (
-    <svg aria-hidden className="absolute size-0">
-      <defs>
-        {SVG_GEOMETRIES.map((geometry) => (
-          <clipPath
-            key={geometry.clipId}
-            id={geometry.clipId}
-            clipPathUnits="objectBoundingBox"
-          >
-            <path d={geometry.normalizedPath} />
-          </clipPath>
-        ))}
-      </defs>
-    </svg>
+    <span
+      aria-hidden
+      className="absolute h-px bg-foreground/30 transition-colors duration-300 group-hover/panel:bg-foreground/60"
+      style={{
+        width: length,
+        left: corner.endsWith("l") ? offset : `calc(100% - ${offset}px)`,
+        top: corner.startsWith("t") ? offset : `calc(100% - ${offset}px)`,
+        transform: `translate(-50%, -50%) rotate(${angle})`,
+      }}
+    />
   )
 }
 
-function CornerBrackets() {
-  return (
-    <>
-      <span className="border-foreground/40 absolute top-0 left-0 size-2.5 border-t border-l" />
-      <span className="border-foreground/40 absolute top-0 right-0 size-2.5 border-t border-r" />
-      <span className="border-foreground/40 absolute bottom-0 left-0 size-2.5 border-b border-l" />
-      <span className="border-foreground/40 absolute right-0 bottom-0 size-2.5 border-b border-r" />
-    </>
-  )
-}
+/** Frame hairline, surface, corner marks — shared by every variant. */
+function PanelFrame({ variant }: { variant: Variant }) {
+  const corners = CUTS[variant]
+  // The hero strip is only ~45px tall — corner marks on a bar that short read
+  // as noise, so it keeps its end-cap language instead.
+  const marked = variant !== "strip"
+  const cutCorners = marked ? ALL_CORNERS.filter((c) => corners[c]) : []
+  const squareCorners = marked ? ALL_CORNERS.filter((c) => !corners[c]) : []
 
-/** Card wash nested inside a CSS-variant inner layer. */
-function CardWash() {
-  return <div className="bg-card/40 absolute inset-0 backdrop-blur-sm" />
-}
-
-function ConsoleFrame() {
   return (
     <>
       <div
-        className="bg-card/40 absolute inset-0 backdrop-blur-sm"
-        style={{ clipPath: `url(#${CONSOLE_CLIP_ID})` }}
+        aria-hidden
+        className="absolute inset-0 bg-foreground/25 transition-colors duration-300 group-hover/panel:bg-foreground/50"
+        style={{ clipPath: cutPolygon(corners) }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-px overflow-hidden bg-background"
+        style={{ clipPath: cutPolygon(corners, 1) }}
       >
-        {/* scanline texture inside the recessed titlebar band */}
-        <div
+        <div className="absolute inset-0 bg-card/40 backdrop-blur-sm" />
+        {/* light falls from the top edge, the way a lit panel would */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-linear-to-b from-foreground/6 to-transparent" />
+        {variant === "skills" && (
+          <div className="absolute inset-x-0 bottom-0 h-1.5 hud-ruler text-foreground/25" />
+        )}
+      </div>
+
+      {squareCorners.map((corner) => (
+        <span
+          key={corner}
           aria-hidden
-          className="scanlines text-foreground absolute top-0 right-0 left-[31.25%] h-[7%] opacity-[0.05]"
+          className={cn(
+            "absolute size-2.5 border-foreground/45 transition-colors duration-300 group-hover/panel:border-foreground/70",
+            BRACKET_EDGES[corner]
+          )}
         />
-      </div>
-      <svg
-        aria-hidden
-        viewBox="0 0 320 200"
-        preserveAspectRatio="none"
-        className="text-border pointer-events-none absolute inset-0 h-full w-full transition-colors duration-300 group-hover/panel:text-foreground/30"
-      >
-        <path
-          d={CONSOLE_PATH}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1}
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
+      ))}
+      {cutCorners.map((corner) => (
+        <ChamferTick key={corner} corner={corner} size={corners[corner]!} />
+      ))}
+
+      {variant === "experience" && (
+        <>
+          {/* registration ticks on the open edge, echoing the timeline rail */}
+          <span
+            aria-hidden
+            className="absolute top-1/3 -right-2 h-px w-2 bg-foreground/30"
+          />
+          <span
+            aria-hidden
+            className="absolute top-2/3 -right-2 h-px w-2 bg-foreground/30"
+          />
+        </>
+      )}
+
+      {variant === "console" && (
+        <>
+          {/* detached reticle brackets — the console is the page's focal panel */}
+          <span
+            aria-hidden
+            className="absolute -top-2 -right-2 size-3 border-t border-r border-foreground/30"
+          />
+          <span
+            aria-hidden
+            className="absolute -bottom-2 -left-2 size-3 border-b border-l border-foreground/30"
+          />
+        </>
+      )}
+
+      {variant === "strip" && (
+        <>
+          <span
+            aria-hidden
+            className="absolute inset-y-0 left-0 w-0.5 bg-foreground/45"
+          />
+          <span
+            aria-hidden
+            className="absolute top-1/2 -right-2 size-1 -translate-y-1/2 bg-foreground/40"
+          />
+        </>
+      )}
     </>
   )
 }
 
-function SkillsFrame() {
+/** Three-segment signal readout, filled left-to-right. Console only. */
+function SignalBlips() {
   return (
-    <>
-      <div
-        className="bg-card/40 absolute inset-0 backdrop-blur-sm"
-        style={{ clipPath: `url(#${SKILLS_CLIP_ID})` }}
-      />
-      <svg
-        aria-hidden
-        viewBox="0 0 320 200"
-        preserveAspectRatio="none"
-        className="text-border pointer-events-none absolute inset-0 h-full w-full transition-colors duration-300 group-hover/panel:text-foreground/30"
-      >
-        <path
-          d={SKILLS_PATH}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1}
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
-    </>
+    <span aria-hidden className="flex items-center gap-0.5">
+      <span className="h-2 w-0.5 bg-foreground/70" />
+      <span className="h-2 w-0.5 bg-foreground/45" />
+      <span className="h-2 w-0.5 bg-foreground/20" />
+    </span>
   )
 }
 
-function ExperienceFrame() {
-  return (
-    <>
-      <div
-        className="bg-card/40 absolute inset-0 backdrop-blur-sm"
-        style={{ clipPath: `url(#${EXPERIENCE_CLIP_ID})` }}
-      />
-      <svg
-        aria-hidden
-        viewBox="0 0 320 200"
-        preserveAspectRatio="none"
-        className="text-border pointer-events-none absolute inset-0 h-full w-full transition-colors duration-300 group-hover/panel:text-foreground/30"
-      >
-        <path
-          d={EXPERIENCE_PATH}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1}
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
-      {/* tick marks protruding from the right edge, echoing the old ledger rail */}
-      <span aria-hidden className="bg-border absolute top-1/3 -right-2 h-px w-2" />
-      <span aria-hidden className="bg-border absolute top-2/3 -right-2 h-px w-2" />
-    </>
-  )
-}
+/**
+ * Titlebar band: a scanlined strip across the top of the panel carrying the
+ * label and ID code, closed by a hairline. The band paints edge-to-edge, so it
+ * carries the top corner cuts itself — it sits above the clipped frame layers,
+ * not inside them.
+ */
+function PanelBand({
+  variant,
+  header,
+  index,
+}: {
+  variant: Variant
+  header?: string
+  index?: string
+}) {
+  const { tl, tr } = CUTS[variant]
 
-function StripFrame() {
   return (
-    <>
-      <div
-        className="bg-border/80 group-hover/panel:bg-foreground/25 absolute inset-0 transition-colors duration-300"
-        style={{ clipPath: STRIP_CLIP }}
-      />
-      <div
-        className="bg-background absolute inset-px"
-        style={{ clipPath: STRIP_CLIP_INNER }}
-      >
-        <CardWash />
-      </div>
-      {/* solid end-cap and detached endpoint tick */}
-      <span aria-hidden className="bg-foreground/40 absolute inset-y-0 left-0 w-0.5" />
+    <div className="relative flex h-8 items-center gap-2.5 border-b border-foreground/15 px-5 sm:px-6">
       <span
         aria-hidden
-        className="bg-foreground/40 absolute top-1/2 -right-2 size-1 -translate-y-1/2"
+        className="absolute inset-0 scanlines text-foreground opacity-[0.07]"
+        style={{ clipPath: cutPolygon({ tl, tr }) }}
       />
-    </>
+      <span
+        aria-hidden
+        className="relative size-1.5 shrink-0 bg-foreground/60 transition-colors duration-300 group-hover/panel:bg-foreground"
+      />
+      {header && (
+        <span className="relative truncate font-mono text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
+          {header}
+        </span>
+      )}
+      <span className="relative ml-auto flex shrink-0 items-center gap-2.5">
+        {variant === "console" && <SignalBlips />}
+        {index && (
+          <span className="font-mono text-[10px] tracking-[0.14em] text-muted-foreground/60 tabular-nums">
+            {index}
+          </span>
+        )}
+      </span>
+    </div>
   )
-}
-
-function BracketFrame() {
-  return (
-    <>
-      <div className="border-border/60 bg-card/40 group-hover/panel:border-foreground/25 absolute inset-0 border backdrop-blur-sm transition-colors duration-300" />
-      <CornerBrackets />
-    </>
-  )
-}
-
-const FRAMES: Record<Variant, () => React.ReactNode> = {
-  console: ConsoleFrame,
-  skills: SkillsFrame,
-  experience: ExperienceFrame,
-  strip: StripFrame,
-  bracket: BracketFrame,
 }
 
 export function HudPanel({
@@ -244,15 +255,14 @@ export function HudPanel({
   children,
 }: {
   /**
-   * Every section gets its own frame:
-   * - "console" — SVG silhouette with titlebar band + staircase notch; only
-   *   for reliably landscape panels (contact).
-   * - "skills" — SVG silhouette with valley notches top-right and
-   *   bottom-left, sized for the skills grid cards.
-   * - "experience" — SVG silhouette with matching top/bottom valley notches
-   *   so stacked timeline entries read as linked segments; header/index
-   *   render in an attached tab, not inline.
-   * - "strip" — capped readout bar with chamfered right end (hero stats).
+   * Every section gets its own cut diagonal and its own set of marks:
+   * - "console" — widest cuts, signal readout in the band, detached reticle
+   *   brackets (contact).
+   * - "skills" — top-left/bottom-right cuts and a tick ruler along the bottom
+   *   edge, sized for the grid cards.
+   * - "experience" — the opposite diagonal plus registration ticks on the open
+   *   right edge, so stacked timeline entries don't mirror the skills grid.
+   * - "strip" — capped readout bar with a chamfered right end (hero stats).
    * - "bracket" — plain rect with corner brackets, the generic fallback.
    */
   variant?: Variant
@@ -262,45 +272,31 @@ export function HudPanel({
   contentClassName?: string
   children: React.ReactNode
 }) {
-  const Frame = FRAMES[variant]
-  const headerInTab = variant === "experience"
+  const banded = BANDED.includes(variant) && Boolean(header || index)
 
   return (
     <div
       className={cn(
-        "group/panel shadow-foreground/10 relative transition-shadow duration-300 hover:shadow-[0_0_32px_-10px]",
+        "group/panel relative shadow-foreground/10 transition-shadow duration-300 hover:shadow-[0_0_32px_-10px]",
         className
       )}
     >
-      <Frame />
+      <PanelFrame variant={variant} />
 
-      {headerInTab && (header || index) && (
-        <div className="border-border/60 bg-card absolute -top-3 left-6 flex items-baseline gap-3 border px-3 py-1">
-          {header && (
-            <span className="text-muted-foreground/80 font-mono text-[10px] tracking-[0.22em] uppercase">
-              {header}
-            </span>
-          )}
-          {index && (
-            <span className="text-muted-foreground/50 font-mono text-[10px] tracking-[0.14em] tabular-nums">
-              {index}
-            </span>
-          )}
-        </div>
-      )}
+      {banded && <PanelBand variant={variant} header={header} index={index} />}
 
       <div
         className={cn("relative", CONTENT_PADDING[variant], contentClassName)}
       >
-        {!headerInTab && (header || index) && (
+        {!banded && (header || index) && (
           <div className="mb-4 flex items-baseline justify-between gap-4">
             {header && (
-              <span className="text-muted-foreground/60 font-mono text-[10px] tracking-[0.22em] uppercase">
+              <span className="font-mono text-[10px] tracking-[0.22em] text-muted-foreground/60 uppercase">
                 {header}
               </span>
             )}
             {index && (
-              <span className="text-muted-foreground/40 font-mono text-[10px] tracking-[0.14em] tabular-nums">
+              <span className="font-mono text-[10px] tracking-[0.14em] text-muted-foreground/40 tabular-nums">
                 {index}
               </span>
             )}

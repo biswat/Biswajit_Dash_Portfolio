@@ -98,7 +98,7 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --border: oklch(1 0 0 / 16%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.87 0 0);
@@ -142,6 +142,35 @@
     currentColor 1px,
     transparent 1px,
     transparent 4px
+  );
+}
+
+/*
+ * Instrument tick ruler, drawn from the bottom of its box so a short strip
+ * (h-1.5) yields marks that hang off the panel's bottom edge. Color via
+ * currentColor, like scanlines.
+ */
+@utility hud-ruler {
+  background-image: repeating-linear-gradient(
+    to right,
+    currentColor 0,
+    currentColor 1px,
+    transparent 1px,
+    transparent 8px
+  );
+  background-position: bottom;
+  background-repeat: repeat-x;
+  background-size: 100% 4px;
+}
+
+/* 45° hatch fill for empty HUD wedges; color via currentColor. */
+@utility hud-hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    currentColor 0,
+    currentColor 1px,
+    transparent 1px,
+    transparent 5px
   );
 }
 

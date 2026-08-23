@@ -23,22 +23,27 @@ import { cn } from "@/lib/utils"
  * same number of px on a 24px icon button and a 300px email button.
  */
 const buttonVariants = cva(
-  "group/button relative isolate inline-flex shrink-0 items-center justify-center font-mono text-[11px] tracking-[0.16em] whitespace-nowrap uppercase transition-all outline-none select-none [--hud-cut:8px] active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 hover:[--hud-tick:var(--color-foreground)] hover:[--hud-scan:color-mix(in_oklch,var(--foreground)_7%,transparent)] before:absolute before:inset-0 before:-z-20 before:hud-cut before:transition-colors before:duration-200 before:content-[''] after:absolute after:inset-px after:-z-10 after:hud-cut-inner after:hud-face after:transition-colors after:duration-200 after:content-[''] focus-visible:before:bg-ring aria-invalid:before:bg-destructive dark:aria-invalid:before:bg-destructive/50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
+  "group/button relative isolate inline-flex shrink-0 items-center justify-center font-mono text-[11px] tracking-[0.16em] whitespace-nowrap uppercase transition-all outline-none select-none [--hud-cut:8px] before:absolute before:inset-0 before:-z-20 before:transition-colors before:duration-200 before:content-[''] before:hud-cut after:absolute after:inset-px after:-z-10 after:hud-face after:transition-colors after:duration-200 after:content-[''] after:hud-cut-inner hover:[--hud-scan:color-mix(in_oklch,var(--foreground)_7%,transparent)] hover:[--hud-tick:var(--color-foreground)] focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:before:bg-ring active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:before:bg-destructive dark:aria-invalid:ring-destructive/40 dark:aria-invalid:before:bg-destructive/50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
   {
     variants: {
       variant: {
         default:
-          "text-primary-foreground shadow-foreground/25 before:bg-primary after:bg-primary hover:shadow-[0_0_24px_-8px] hover:after:bg-primary/85 hover:[--hud-tick:var(--color-primary-foreground)] hover:[--hud-scan:color-mix(in_oklch,var(--primary-foreground)_10%,transparent)]",
+          "text-primary-foreground shadow-foreground/25 before:bg-primary after:bg-primary hover:shadow-[0_0_24px_-8px] hover:[--hud-scan:color-mix(in_oklch,var(--primary-foreground)_10%,transparent)] hover:[--hud-tick:var(--color-primary-foreground)] hover:after:bg-primary/85",
+        // Surface is the page ground, not `input` — `--input` already carries
+        // its own alpha, so a modifier on top of it lands somewhere between
+        // "invisible" and "grey slab" depending on what's behind the button.
+        // A near-opaque background keeps the frame reading as a hairline on a
+        // recessed key in both themes.
         outline:
-          "text-foreground/80 shadow-foreground/25 before:bg-foreground/25 after:bg-input/30 hover:text-foreground hover:shadow-[0_0_24px_-8px] hover:before:bg-foreground/60 hover:after:bg-input/50 aria-expanded:text-foreground aria-expanded:before:bg-foreground/60 aria-expanded:after:bg-muted",
+          "text-foreground/80 shadow-foreground/25 before:bg-foreground/35 after:bg-background/80 hover:text-foreground hover:shadow-[0_0_24px_-8px] hover:before:bg-foreground/70 hover:after:bg-foreground/8 aria-expanded:text-foreground aria-expanded:before:bg-foreground/70 aria-expanded:after:bg-muted",
         secondary:
           "text-secondary-foreground shadow-foreground/25 before:bg-foreground/20 after:bg-secondary hover:shadow-[0_0_24px_-8px] hover:before:bg-foreground/45 hover:after:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:before:bg-foreground/45 aria-expanded:after:bg-secondary",
         ghost:
           "text-muted-foreground before:bg-transparent after:bg-transparent hover:text-foreground hover:before:bg-foreground/30 hover:after:bg-muted/50 aria-expanded:text-foreground aria-expanded:before:bg-foreground/30 aria-expanded:after:bg-muted dark:hover:after:bg-muted/50",
         destructive:
-          "text-destructive before:bg-destructive/40 after:bg-destructive/10 hover:before:bg-destructive/70 hover:after:bg-destructive/20 hover:[--hud-tick:var(--color-destructive)] hover:[--hud-scan:color-mix(in_oklch,var(--destructive)_10%,transparent)] focus-visible:before:bg-destructive/60 focus-visible:ring-destructive/20 dark:after:bg-destructive/20 dark:hover:after:bg-destructive/30 dark:focus-visible:ring-destructive/40",
+          "text-destructive before:bg-destructive/40 after:bg-destructive/10 hover:[--hud-scan:color-mix(in_oklch,var(--destructive)_10%,transparent)] hover:[--hud-tick:var(--color-destructive)] hover:before:bg-destructive/70 hover:after:bg-destructive/20 focus-visible:ring-destructive/20 focus-visible:before:bg-destructive/60 dark:after:bg-destructive/20 dark:hover:after:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         // The one variant with no HUD frame: plain inline text.
-        link: "font-sans text-sm tracking-normal text-primary normal-case underline-offset-4 before:hidden after:hidden hover:underline hover:[--hud-tick:transparent] hover:[--hud-scan:transparent]",
+        link: "font-sans text-sm tracking-normal text-primary normal-case underline-offset-4 before:hidden after:hidden hover:underline hover:[--hud-scan:transparent] hover:[--hud-tick:transparent]",
       },
       size: {
         default:
@@ -47,7 +52,8 @@ const buttonVariants = cva(
         sm: "h-8 gap-1.5 px-3.5 [--hud-cut:8px] has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5",
         lg: "h-10 gap-2 px-5 [--hud-cut:10px] has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
         icon: "size-9 [--hud-cut:8px]",
-        "icon-xs": "size-6 [--hud-cut:6px] [&_svg:not([class*='size-'])]:size-3",
+        "icon-xs":
+          "size-6 [--hud-cut:6px] [&_svg:not([class*='size-'])]:size-3",
         "icon-sm": "size-8 [--hud-cut:8px]",
         "icon-lg": "size-10 [--hud-cut:10px]",
       },
