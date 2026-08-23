@@ -53,7 +53,7 @@ export const hero: Hero = {
   statusLine: "open to opportunities",
   location: "Bhubaneswar, IN",
   coordinates: [20.2961, 85.8245],
-  email: "biswat@gmail.com",
+  email: "biswajit.18.dash@gmail.com",
   resume: "/resume.pdf",
 }
 
@@ -149,26 +149,20 @@ export const experiences: Experience[] = [
 export const socials: SocialLink[] = [
   {
     label: "GitHub",
-    href: "https://github.com/ashutoshdash",
+    href: "https://github.com/biswat",
     handle: "@ashutoshdash",
     icon: "github",
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/ashutoshdash",
-    handle: "in/ashutoshdash",
+    href: "https://www.linkedin.com/in/biswajit-2000-dash/",
+    handle: "in/biswajit-2000-dash/",
     icon: "linkedin",
   },
   {
-    label: "X",
-    href: "https://x.com/ashutoshdash",
-    handle: "@ashutoshdash",
-    icon: "x",
-  },
-  {
     label: "Email",
-    href: "mailto:dashashutosh1999@gmail.com",
-    handle: "dashashutosh1999@gmail.com",
+    href: "mailto:biswajit.18.dash@gmail.com",
+    handle: "biswajit.18.dash@gmail.com",
     icon: "mail",
   },
 ]

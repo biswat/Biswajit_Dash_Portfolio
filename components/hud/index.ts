@@ -1,6 +1,6 @@
 export { ClientInfoProvider, useClientInfoContext } from './client-info-provider'
 export { HudLayout } from './hud-layout'
-export { HudPanel, HudPanelDefs } from './hud-panel'
+export { HudPanel } from './hud-panel'
 export { HudTopRail, HudLeftRail, HudRightRail, HudBottomRail } from './hud-rails'
 export { PageSkeleton } from './page-skeleton'
 export { ScrollProgressBars } from './scroll-progress-bars'

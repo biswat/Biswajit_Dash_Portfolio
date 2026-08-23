@@ -2,15 +2,17 @@
 
 import { useMemo } from "react"
 
+import { Separator } from "@/components/ui"
 import { useClock } from "@/hooks/use-clock"
 import { useDevice } from "@/hooks/use-device"
 import { useNetwork } from "@/hooks/use-network"
 import { useSessionTelemetry } from "@/hooks/use-session-telemetry"
+import { useVisitHistory } from "@/hooks/use-visit-history"
 import { hero } from "@/lib/content"
-import { coord, DASH, duration, nullish, offset } from "@/lib/format"
-import { Separator } from '@/components/ui'
+import { ago, coord, DASH, duration, nullish, offset } from "@/lib/format"
 
 import { useClientInfoContext } from "./client-info-provider"
+import { CursorMap } from "./cursor-map"
 import { Globe, type GlobeArc, type GlobeMarker } from "./globe"
 import { ScrollProgressBars } from "./scroll-progress-bars"
 import { Stat, StatGroup } from "./stat"
@@ -61,10 +63,15 @@ export function HudTopRail() {
 export function HudLeftRail() {
   const { data, rttMs, error } = useClientInfoContext()
   const network = useNetwork()
+  const visits = useVisitHistory()
 
   return (
-    <aside className="fixed top-8 bottom-8 left-0 z-40 hidden w-44 border-r border-border/60 bg-background/80 px-3 py-4 backdrop-blur-md lg:block">
+    <aside className="fixed top-8 bottom-8 left-0 z-40 hidden w-44 overflow-y-auto border-r border-border/60 bg-background/80 px-3 py-4 backdrop-blur-md lg:block">
       <div className="flex flex-col gap-5">
+        <StatGroup title="pointer">
+          <CursorMap />
+        </StatGroup>
+
         <StatGroup title="identity">
           <Stat
             label="ip"
@@ -95,6 +102,30 @@ export function HudLeftRail() {
           <Stat
             label="online"
             value={network ? (network.online ? "true" : "false") : DASH}
+            accent
+          />
+        </StatGroup>
+
+        <StatGroup title="visits">
+          <Stat
+            label="count"
+            value={visits ? `#${String(visits.visit).padStart(2, "0")}` : DASH}
+            accent
+          />
+          <Stat
+            label="last"
+            value={
+              visits
+                ? visits.previousAt
+                  ? ago(visits.previousAt)
+                  : "first time"
+                : DASH
+            }
+          />
+          <Stat label="known" value={visits ? ago(visits.firstAt) : DASH} />
+          <Stat
+            label="dwell"
+            value={visits ? duration(visits.totalMs) : DASH}
             accent
           />
         </StatGroup>
@@ -183,7 +214,9 @@ export function HudRightRail() {
           <Stat label="cores" value={device?.cores ?? DASH} accent />
           <Stat
             label="ram"
-            value={nullish(device?.ramGb, (v) => `${v} GB`)}
+            value={
+              device ? (device.ramGb ? `${device.ramGb} GB` : "N/A") : DASH
+            }
             accent
           />
           <Stat label="touch" value={device?.touchPoints ?? DASH} />

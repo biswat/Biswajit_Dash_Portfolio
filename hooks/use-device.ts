@@ -70,6 +70,7 @@ function read(): DeviceState {
     pixelRatio: Number(window.devicePixelRatio.toFixed(2)),
     colorDepth: screen.colorDepth,
     cores: nav.hardwareConcurrency ?? null,
+    // Chromium-only, secure contexts only, and clamped by spec to 0.25–8.
     ramGb: nav.deviceMemory ?? null,
     touchPoints: nav.maxTouchPoints ?? 0,
     language: nav.language,

@@ -1,5 +1,4 @@
 export { Button, buttonVariants } from './button'
-export { ClippedWrapper } from './clippedButtton'
 export { Separator } from './separator'
 export { Skeleton } from './skeleton'
 export { EncryptedText } from './encrypted-text'
