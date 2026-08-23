@@ -1,7 +1,7 @@
 import { Geist_Mono, Inter } from "next/font/google"
 
 import "./globals.css"
-import { HudLayout } from "@/components/hud/hud-layout"
+import { HudLayout } from '@/components/hud'
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 

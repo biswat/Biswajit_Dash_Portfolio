@@ -1,0 +1,5 @@
+export { Hero } from './hero'
+export { Contact } from './contact'
+export { Experience } from './experience'
+export { Skills } from './skills'
+export { SocialIconRow, SocialRows } from './social-links'

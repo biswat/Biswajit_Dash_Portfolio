@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from '@/components/ui'
 
 /**
  * Mirrors the real page's section count and heights. `data-section` is carried

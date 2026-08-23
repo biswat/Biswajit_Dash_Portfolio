@@ -2,10 +2,8 @@
 
 import { motion } from "motion/react"
 
-import { HudPanel } from "@/components/hud/hud-panel"
-import { SectionShell } from "@/components/hud/section-shell"
-import { TechChip } from "@/components/hud/tech-chip"
-import { StaggerGroup, StaggerItem } from "@/components/motion/reveal"
+import { HudPanel, SectionShell, TechChip } from '@/components/hud'
+import { StaggerGroup, StaggerItem } from '@/components/motion'
 import { experiences } from "@/lib/content"
 
 export function Experience() {

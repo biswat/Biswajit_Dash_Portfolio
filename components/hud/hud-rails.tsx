@@ -8,7 +8,7 @@ import { useNetwork } from "@/hooks/use-network"
 import { useSessionTelemetry } from "@/hooks/use-session-telemetry"
 import { hero } from "@/lib/content"
 import { coord, DASH, duration, nullish, offset } from "@/lib/format"
-import { Separator } from "@/components/ui/separator"
+import { Separator } from '@/components/ui'
 
 import { useClientInfoContext } from "./client-info-provider"
 import { Globe, type GlobeArc, type GlobeMarker } from "./globe"

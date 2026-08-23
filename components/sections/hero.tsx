@@ -1,11 +1,8 @@
 import { IconDownload } from "@tabler/icons-react"
 
-import { HudPanel } from "@/components/hud/hud-panel"
-import { Stat } from "@/components/hud/stat"
-import { DecodeText } from "@/components/motion/decode-text"
-import { Reveal } from "@/components/motion/reveal"
-import { Button } from "@/components/ui/button"
-import { EncryptedText } from "@/components/ui/encrypted-text"
+import { HudPanel, Stat } from '@/components/hud'
+import { DecodeText, Reveal } from '@/components/motion'
+import { Button, EncryptedText } from '@/components/ui'
 import { hero } from "@/lib/content"
 
 import { SocialIconRow } from "./social-links"

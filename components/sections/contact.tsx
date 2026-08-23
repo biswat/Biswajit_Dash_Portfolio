@@ -1,9 +1,9 @@
 import { IconDownload } from "@tabler/icons-react"
 
 import { HudPanel } from "@/components/hud/hud-panel"
+import { SectionShell } from "@/components/hud/section-shell"
 import { DecodeText } from "@/components/motion/decode-text"
 import { Reveal } from "@/components/motion/reveal"
-import { SectionShell } from "@/components/hud/section-shell"
 import { Button } from "@/components/ui/button"
 import { hero, socials } from "@/lib/content"
 
