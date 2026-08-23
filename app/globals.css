@@ -144,3 +144,81 @@
     transparent 4px
   );
 }
+
+/*
+ * Button silhouette: 45° cuts on the top-left and bottom-right corners, sized
+ * in fixed px via --hud-cut so the chamfer stays identical at every button
+ * width (unlike an objectBoundingBox SVG clip, which stretches with the box).
+ * Buttons draw their hairline as two stacked layers — hud-cut on the frame
+ * layer, hud-cut-inner on a surface layer at inset-px — because a CSS border
+ * is clipped away along the diagonals. Same trick as TechChip / StripFrame.
+ */
+@utility hud-cut {
+  clip-path: polygon(
+    var(--hud-cut) 0,
+    100% 0,
+    100% calc(100% - var(--hud-cut)),
+    calc(100% - var(--hud-cut)) 100%,
+    0 100%,
+    0 var(--hud-cut)
+  );
+}
+
+@utility hud-cut-inner {
+  clip-path: polygon(
+    calc(var(--hud-cut) - 1px) 0,
+    100% 0,
+    100% calc(100% - var(--hud-cut) + 1px),
+    calc(100% - var(--hud-cut) + 1px) 100%,
+    0 100%,
+    0 calc(var(--hud-cut) - 1px)
+  );
+}
+
+/*
+ * Detail overlay for the button surface layer: L-brackets on the two square
+ * corners (top-right, bottom-left) plus CRT scanlines, in one background stack
+ * — they have to share a layer because the surface is the topmost thing under
+ * the label, and anything painted on the button element itself is covered by
+ * it. Registering the two colors as @property makes them animate, so both
+ * details can fade in on hover instead of snapping.
+ */
+@property --hud-tick {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --hud-scan {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@utility hud-face {
+  background-image:
+    linear-gradient(var(--hud-tick), var(--hud-tick)),
+    linear-gradient(var(--hud-tick), var(--hud-tick)),
+    linear-gradient(var(--hud-tick), var(--hud-tick)),
+    linear-gradient(var(--hud-tick), var(--hud-tick)),
+    repeating-linear-gradient(
+      0deg,
+      var(--hud-scan) 0,
+      var(--hud-scan) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  background-size:
+    7px 1px,
+    1px 7px,
+    7px 1px,
+    1px 7px,
+    auto;
+  background-position:
+    top right,
+    top right,
+    bottom left,
+    bottom left,
+    0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+}

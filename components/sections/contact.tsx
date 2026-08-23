@@ -28,6 +28,7 @@ export function Contact() {
             <div className="flex flex-wrap items-center gap-3">
               <Button
                 variant="outline"
+                className="normal-case"
                 render={<a href={`mailto:${hero.email}`} />}
               >
                 {hero.email}

@@ -1,8 +1,8 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import createGlobe, { type Arc, type Marker } from "cobe"
 import { useTheme } from "next-themes"
+import { useEffect, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -25,11 +25,11 @@ const LIGHT_PALETTE = {
 
 const DARK_PALETTE = {
   dark: 1,
-  baseColor: [0.15, 0.15, 0.15] as [number, number, number],
+  baseColor: [0.32, 0.32, 0.32] as [number, number, number],
   markerColor: [1, 1, 1] as [number, number, number],
   glowColor: [0.4, 0.4, 0.4] as [number, number, number],
   arcColor: [0.92, 0.92, 0.92] as [number, number, number],
-  mapBrightness: 3,
+  mapBrightness: 15,
 }
 
 /** Lat/lng (degrees) -> unit vector on the sphere. */
@@ -37,7 +37,11 @@ function toVector([lat, lng]: [number, number]): [number, number, number] {
   const latRad = (lat * Math.PI) / 180
   const lngRad = (lng * Math.PI) / 180
   const cosLat = Math.cos(latRad)
-  return [cosLat * Math.cos(lngRad), cosLat * Math.sin(lngRad), Math.sin(latRad)]
+  return [
+    cosLat * Math.cos(lngRad),
+    cosLat * Math.sin(lngRad),
+    Math.sin(latRad),
+  ]
 }
 
 function toLatLng([x, y, z]: [number, number, number]): [number, number] {
@@ -122,7 +126,7 @@ export function Globe({
       height: width * 2,
       phi: phiRef.current,
       theta: 0.2,
-      mapSamples: 8000,
+      mapSamples: 16000,
       markerElevation: 0.02,
       diffuse: 1.2,
       scale: 1,

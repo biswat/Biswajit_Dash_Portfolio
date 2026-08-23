@@ -47,24 +47,10 @@ const SKILLS_PATH_NORMALIZED =
 
 const SKILLS_CLIP_ID = "hud-clip-skills"
 
-/**
- * Chamfered pill silhouette shared by every Button (see
- * components/ui/button.tsx): rounded cuts on the top-left and bottom-right
- * corners, tight rounded corners on the other two. Button applies this clip
- * path by hardcoding the `hud-clip-buttons` id (Tailwind's class scanner
- * needs a literal string) rather than importing it from here — keep that
- * id in sync with BUTTON_CLIP_ID below if it ever changes.
- */
-const BUTTON_PATH_NORMALIZED =
-  "M0.086875,0.021 Q0.1,0 0.11875,0 L0.98125,0 Q1,0 1,0.03 L1,0.81 Q1,0.84 0.986875,0.861 L0.913125,0.979 Q0.9,1 0.88125,1 L0.01875,1 Q0,1 0,0.97 L0,0.19 Q0,0.16 0.013125,0.139 L0.086875,0.021 Z"
-
-const BUTTON_CLIP_ID = "hud-clip-buttons"
-
 const SVG_GEOMETRIES = [
   { clipId: CONSOLE_CLIP_ID, normalizedPath: CONSOLE_PATH_NORMALIZED },
   { clipId: EXPERIENCE_CLIP_ID, normalizedPath: EXPERIENCE_PATH_NORMALIZED },
   { clipId: SKILLS_CLIP_ID, normalizedPath: SKILLS_PATH_NORMALIZED },
-  { clipId: BUTTON_CLIP_ID, normalizedPath: BUTTON_PATH_NORMALIZED },
 ]
 
 /**
