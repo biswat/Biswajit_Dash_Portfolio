@@ -23,9 +23,17 @@ export function useSectionProgress() {
 
   useEffect(() => {
     const measure = () => {
+      // Dedupe by section name: guards against transient duplicate nodes
+      // (e.g. skeleton/real-content overlap) inflating the count.
+      const seen = new Set<string>()
       const nodes = Array.from(
         document.querySelectorAll<HTMLElement>(`[${SECTION_ATTRIBUTE}]`)
-      )
+      ).filter((node) => {
+        const name = node.getAttribute(SECTION_ATTRIBUTE)
+        if (!name || seen.has(name)) return false
+        seen.add(name)
+        return true
+      })
       // A section counts as done once its bottom half clears the viewport
       // midpoint — when you have finished reading it, not when its top touches
       // the top of the screen.
