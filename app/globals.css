@@ -163,6 +163,42 @@
   background-size: 100% 4px;
 }
 
+/*
+ * Survey lattice for the page backdrop, split into two utilities rather than
+ * one four-layer stack because the tiers need different intensities — a real
+ * plotting surface reads as a faint minor grid with a heavier major grid
+ * ruled over it, and background-image layers can't carry separate opacities.
+ * Stack them as two elements and set intensity the way scanlines does.
+ */
+@utility hud-grid {
+  background-image:
+    linear-gradient(to right, currentColor 0, currentColor 1px, transparent 1px),
+    linear-gradient(to bottom, currentColor 0, currentColor 1px, transparent 1px);
+  background-size: 8px 8px;
+  background-position: center;
+}
+
+@utility hud-grid-major {
+  background-image:
+    linear-gradient(to right, currentColor 0, currentColor 1px, transparent 1px),
+    linear-gradient(to bottom, currentColor 0, currentColor 1px, transparent 1px);
+  background-size: 96px 96px;
+  background-position: center;
+}
+
+/*
+ * Edge falloff for the backdrop. Always painted in black (never currentColor)
+ * — a vignette has to darken in both themes, and foreground inverts to near
+ * white in dark mode, which would turn the same gradient into a glow.
+ */
+@utility hud-vignette {
+  background-image: radial-gradient(
+    ellipse 100% 78% at 50% 42%,
+    transparent 55%,
+    oklch(0 0 0) 100%
+  );
+}
+
 /* 45° hatch fill for empty HUD wedges; color via currentColor. */
 @utility hud-hatch {
   background-image: repeating-linear-gradient(

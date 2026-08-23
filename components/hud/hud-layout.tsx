@@ -1,4 +1,5 @@
 import { ClientInfoProvider } from "./client-info-provider"
+import { HudBackdrop } from "./hud-backdrop"
 import {
   HudBottomRail,
   HudLeftRail,
@@ -13,6 +14,7 @@ import {
 export function HudLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClientInfoProvider>
+      <HudBackdrop />
       <HudTopRail />
       <HudLeftRail />
       <HudRightRail />
