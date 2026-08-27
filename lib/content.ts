@@ -150,7 +150,7 @@ export const socials: SocialLink[] = [
   {
     label: "GitHub",
     href: "https://github.com/biswat",
-    handle: "@ashutoshdash",
+    handle: "@biswat",
     icon: "github",
   },
   {
